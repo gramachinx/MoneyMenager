@@ -20,6 +20,9 @@ public class RegsiterController {
 	@Autowired
 	CheckRegisterService userServ;
 	
+	@Autowired
+	RegisterService userRegService;
+	
 	@GetMapping("/register")
 	public String registerPage(Model model)
 	{
@@ -51,6 +54,16 @@ public class RegsiterController {
 			return "registerPage";
 		}
 		
+		if(userReg.getPassword() != userReg.getRepassword())
+		{
+			ObjectError err = new ObjectError("failPasswordMatch", "Hasla ze soba sa niezgodne.");
+			result.addError(err);
+			return "registerPage";
+		}
+		
+		
+		
+		userRegService.addUser(userReg);
 		return "/"; // strona ktora poinformuje o strzoonym urzytkowniku
 	}
 
