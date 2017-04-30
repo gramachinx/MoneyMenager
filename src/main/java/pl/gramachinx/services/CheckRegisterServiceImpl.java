@@ -14,8 +14,8 @@ public class CheckRegisterServiceImpl {
 	
 	public boolean usernameExist(String username)
 	{
-		User user = userRepo.getByUsername(username);
-		
+		User user = userRepo.findByUsername(username);
+
 		if(user == null)
 		{
 			return false;
@@ -27,7 +27,7 @@ public class CheckRegisterServiceImpl {
 	
 	public boolean emailExist(String email)
 	{
-		User user = userRepo.getByEmail(email);
+		User user = userRepo.findByEmail(email);
 		
 		if(user == null)
 		{

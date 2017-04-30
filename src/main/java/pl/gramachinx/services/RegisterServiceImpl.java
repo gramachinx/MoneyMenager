@@ -26,6 +26,10 @@ public class RegisterServiceImpl {
 			createdUser.setRole("USER");
 			createdUser.setUsername(user.getUsername());
 			createdUser.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+			createdUser.setSpecialNumber(((long) ((1 + Math.random())*10000000)));
+			createdUser.setEnabled(true);
+			System.out.println(createdUser.toString());
+			userRepo.save(createdUser);
 			
 			return false;
 			

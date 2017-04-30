@@ -3,6 +3,7 @@ package pl.gramachinx.controllers;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -11,17 +12,19 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import pl.gramachinx.domains.UserRegister;
-import pl.gramachinx.services.CheckRegisterService;
+import pl.gramachinx.services.CheckRegisterServiceImpl;
+import pl.gramachinx.services.CheckRegisterServiceInter;
 import pl.gramachinx.services.RegisterService;
+import pl.gramachinx.services.RegisterServiceImpl;
 
 @Controller
 public class RegsiterController {
 	
 	@Autowired
-	CheckRegisterService userServ;
+	CheckRegisterServiceImpl userServ;
 	
 	@Autowired
-	RegisterService userRegService;
+	RegisterServiceImpl userRegService;
 	
 	@GetMapping("/register")
 	public String registerPage(Model model)
@@ -46,15 +49,15 @@ public class RegsiterController {
 			result.addError(err);
 			return "registerPage";
 		}
-		
+		// TODO poprawic te ify
 		if(userServ.emailExist(userReg.getEmail()))
 		{
 			ObjectError err = new ObjectError("emailExist", "Email o takiej skladnij juz istnieje");
 			result.addError(err);
 			return "registerPage";
 		}
-		
-		if(userReg.getPassword() != userReg.getRepassword())
+	
+		if(!userReg.getPassword().equals(userReg.getRepassword()))
 		{
 			ObjectError err = new ObjectError("failPasswordMatch", "Hasla ze soba sa niezgodne.");
 			result.addError(err);
@@ -64,7 +67,7 @@ public class RegsiterController {
 		
 		
 		userRegService.addUser(userReg);
-		return "/"; // strona ktora poinformuje o strzoonym urzytkowniku
+		return "loginPage"; // strona ktora poinformuje o strzoonym urzytkowniku
 	}
 
 }

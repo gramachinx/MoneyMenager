@@ -39,10 +39,25 @@ public class User {
 	private String role;
 	
 	@NotNull
+	private long specialNumber;
+	
+	@NotNull
 	private boolean isActive;
 	
 	@NotNull
 	private boolean isConfig;
+	@NotNull
+	private boolean enabled;
+
+	
+	
+	public boolean isEnabled() {
+		return enabled;
+	}
+
+	public void setEnabled(boolean enabled) {
+		this.enabled = enabled;
+	}
 
 	public long getId() {
 		return id;
@@ -115,6 +130,23 @@ public class User {
 	public void setConfig(boolean isConfig) {
 		this.isConfig = isConfig;
 	}
+
+	public long getSpecialNumber() {
+		return specialNumber;
+	}
+
+	public void setSpecialNumber(long specialNumber) {
+		this.specialNumber = specialNumber;
+	}
+
+	@Override
+	public String toString() {
+		return "User [id=" + id + ", username=" + username + ", password=" + password + ", name=" + name + ", email="
+				+ email + ", userData=" + userData + ", role=" + role + ", specialNumber=" + specialNumber
+				+ ", isActive=" + isActive + ", isConfig=" + isConfig + "]";
+	}
+	
+	
 	
 	
 	
