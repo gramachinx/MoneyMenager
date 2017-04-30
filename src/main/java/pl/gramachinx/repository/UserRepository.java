@@ -1,5 +1,11 @@
 package pl.gramachinx.repository;
 
-public interface UserRepository {
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import pl.gramachinx.domains.User;
+
+public interface UserRepository extends JpaRepository<User, Long> {
+		User getByUsername(String username);
+		User getByEmail(String email);
 
 }
