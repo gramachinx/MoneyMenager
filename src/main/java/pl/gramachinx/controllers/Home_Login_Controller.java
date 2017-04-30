@@ -27,7 +27,7 @@ public class Home_Login_Controller {
 			return "loginPage";
 		}else
 		{
-			return "homePage"; // zmienic na redirect
+			return "redirect:/user";  
 		}
 	
 	}

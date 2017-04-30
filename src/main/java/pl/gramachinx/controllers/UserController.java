@@ -19,7 +19,7 @@ public class UserController {
 	{
 		if(!checkauth.ifAuthorized(SecurityContextHolder.getContext().getAuthentication().getName()))
 		{
-		return "activatedPage";	//TODO zmienic na refirect
+		return "redirect:/authorize";	
 		}
 		
 		return "homePage";
