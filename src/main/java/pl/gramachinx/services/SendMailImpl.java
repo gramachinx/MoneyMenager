@@ -3,10 +3,11 @@ package pl.gramachinx.services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.stereotype.Service;
 
 import pl.gramachinx.domains.User;
 import pl.gramachinx.repository.UserRepository;
-
+@Service
 public class SendMailImpl implements SendMail {
 
 	@Autowired
@@ -16,6 +17,7 @@ public class SendMailImpl implements SendMail {
 	 public JavaMailSender emailSender;
 	public boolean sendMail(String username) {
 		User user = userRepo.findByUsername(username);
+
 		SimpleMailMessage message = new SimpleMailMessage();
 		message.setText("Twoj unikalny kod to: " + user.getSpecialNumber());
 		message.setSubject("Kod do autoryzacji na Money Menager");

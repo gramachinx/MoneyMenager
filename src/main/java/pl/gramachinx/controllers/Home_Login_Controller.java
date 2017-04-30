@@ -4,6 +4,7 @@ import java.security.Principal;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
@@ -11,8 +12,12 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import pl.gramachinx.services.SendMail;
+
 @Controller
 public class Home_Login_Controller {
+	@Autowired
+	SendMail sm;
 	
 	@GetMapping("/")
 	public String loginPage(HttpServletRequest request)
@@ -27,7 +32,7 @@ public class Home_Login_Controller {
 	
 	}
 	
-	@GetMapping("/user")
+	@GetMapping("/user3")
 	@Secured(value="ADMIN")
 	public String homePage()
 	{
@@ -40,6 +45,7 @@ public class Home_Login_Controller {
 		
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		System.out.println(auth.getName());
+		sm.sendMail(auth.getName());
 		
 		return "homePage";
 	}
