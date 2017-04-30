@@ -14,6 +14,9 @@ public class RegisterServiceImpl {
 		private UserRepository userRepo;
 		
 		@Autowired
+		SendMail sendMail;
+		
+		@Autowired
 	    private BCryptPasswordEncoder bCryptPasswordEncoder;
 		
 		public boolean addUser(UserRegister user)
@@ -30,6 +33,7 @@ public class RegisterServiceImpl {
 			createdUser.setEnabled(true);
 			System.out.println(createdUser.toString());
 			userRepo.save(createdUser);
+			sendMail.sendMail(createdUser.getName());
 			
 			return false;
 			

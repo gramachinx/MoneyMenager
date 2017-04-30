@@ -22,11 +22,9 @@ public class Home_Login_Controller {
 			return "loginPage";
 		}else
 		{
-			return "homePage";
+			return "homePage"; // zmienic na redirect
 		}
-	//	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		//System.out.println(auth.getName() + " " + part.toString());
-	//	return "loginPage";
+	
 	}
 	
 	@GetMapping("/user")

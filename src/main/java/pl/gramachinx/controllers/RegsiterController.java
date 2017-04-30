@@ -64,7 +64,7 @@ public class RegsiterController {
 			return "registerPage";
 		}
 		
-		
+		//TODO wysylac maila z aktywacja i przekierowanie do strony z aktywacja
 		
 		userRegService.addUser(userReg);
 		return "loginPage"; // strona ktora poinformuje o strzoonym urzytkowniku
