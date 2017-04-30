@@ -49,7 +49,7 @@ public class RegsiterController {
 			result.addError(err);
 			return "registerPage";
 		}
-		// TODO poprawic te ify
+		// TODO wpakowac te ify do serwisu
 		if(userServ.emailExist(userReg.getEmail()))
 		{
 			ObjectError err = new ObjectError("emailExist", "Email o takiej skladnij juz istnieje");

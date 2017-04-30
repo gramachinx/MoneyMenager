@@ -15,9 +15,18 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class Home_Login_Controller {
 	
 	@GetMapping("/")
-	public String loginPage()
+	public String loginPage(HttpServletRequest request)
 	{
-		return "loginPage";
+		if(request.getUserPrincipal() == null)
+		{
+			return "loginPage";
+		}else
+		{
+			return "homePage";
+		}
+	//	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		//System.out.println(auth.getName() + " " + part.toString());
+	//	return "loginPage";
 	}
 	
 	@GetMapping("/user")
