@@ -24,12 +24,20 @@ public class AuthController {
 	@GetMapping("/authorize")
 	public String authorziePage()
 	{
+		if(!checkauth.ifAuthorized(SecurityContextHolder.getContext().getAuthentication().getName()))
+		{
 		return "activatedPage";
+		}else
+		{
+			return "redirect:/user";
+		}
 	}
 	
 	@PostMapping("/authorize")
-	public String authorziePostPage(HttpServletRequest request)
+	public String authorziePostPage(HttpServletRequest request) //BindException class ?? do errorow
 	{
+		if(!checkauth.ifAuthorized(SecurityContextHolder.getContext().getAuthentication().getName()))
+		{
 		long code = Long.parseLong(request.getParameter("activatedNumber"));
 		String username = SecurityContextHolder.getContext().getAuthentication().getName();
 		if(checkauth.codeCorrect(username, code))
@@ -40,7 +48,10 @@ public class AuthController {
 		{
 			System.out.println("error morda");
 		}
-		
+		}else
+		{
+			return "redirect:/user";
+		}
 		return "activatedPage";
 	}
 
