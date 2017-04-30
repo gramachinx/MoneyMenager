@@ -24,6 +24,7 @@ public class RegsiterController {
 	public String registerPostPage(@Valid UserRegister userReg, BindingResult result)
 	{
 		System.out.println(userReg.getEmail());
+		
 		if(result.hasErrors())
 		{
 			return "registerPage";

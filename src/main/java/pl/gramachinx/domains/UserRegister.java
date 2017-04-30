@@ -9,11 +9,8 @@ import javax.validation.constraints.Size;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 
-@Entity
+
 public class UserRegister {
-	@Id
-	@GeneratedValue
-	private long id;
 	
 	@NotEmpty
 	@Size(min=3, max=25)
@@ -34,13 +31,7 @@ public class UserRegister {
 	@NotEmpty
 	private String email;
 
-	public long getId() {
-		return id;
-	}
-
-	public void setId(long id) {
-		this.id = id;
-	}
+	
 
 	public String getUsername() {
 		return username;

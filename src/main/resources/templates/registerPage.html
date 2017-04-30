@@ -14,7 +14,7 @@
 		method="post">
 
 		<ul th:if="${#fields.hasErrors('*')}" class="errorlist">
-			<li th:each="err : ${#fields.errors('*')}" th:text="${err}">incorect
+			<li th:each="err : ${#fields.errors('*')}" th:text="${err}" class="red-text">incorect
 				data</li>
 		</ul>
 
