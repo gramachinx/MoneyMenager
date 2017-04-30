@@ -18,4 +18,12 @@ public class CheckAuthorizeImpl implements CheckAuthorize {
 		return user.isActive();
 	}
 
+
+	@Override
+	public boolean codeCorrect(String username, long code) {
+		User user = userRepo.findByUsername(username);
+		
+		return user.getSpecialNumber() == code;
+	}
+
 }
