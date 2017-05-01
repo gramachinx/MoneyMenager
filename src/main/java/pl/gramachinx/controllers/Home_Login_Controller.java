@@ -33,10 +33,9 @@ public class Home_Login_Controller {
 	}
 	
 	@GetMapping("/user3")
-	@Secured(value="ADMIN")
 	public String homePage()
 	{
-		return "homePage";
+		return "configPage";
 	}
 	
 	@GetMapping("/user2")

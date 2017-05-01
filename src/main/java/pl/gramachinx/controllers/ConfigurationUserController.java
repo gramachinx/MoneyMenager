@@ -4,36 +4,33 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 
-import pl.gramachinx.services.CheckAuthorize;
 import pl.gramachinx.services.CheckConfig;
 
 @Controller
-public class UserController {
+public class ConfigurationUserController {
 	
 	@Autowired
-	CheckAuthorize checkauth;
-	@Autowired
-	CheckConfig checkconf;
+	CheckConfig checkConf;
 	
-	
-	
-	
-	@GetMapping("/user")
-	public String userPage()
+	@GetMapping("/configuration")
+	public String configPage()
 	{
 		String username = SecurityContextHolder.getContext().getAuthentication().getName();
-		if(!checkauth.ifAuthorized(username))
+		if(checkConf.ifConfig(username))
 		{
-		return "redirect:/authorize";	
+			return "redirect:/user";
 		}
-		if(!checkconf.ifConfig(username))
-		{
-			return "redirect:/configuration";
-		}
-		
-		return "homePage";
-		
+		return "configPage";
 	}
+	
+	@PostMapping("/configuration")
+	public String configPagePost()
+	{
+		return "redirect:/user";
+	}
+	
+	
 
 }
