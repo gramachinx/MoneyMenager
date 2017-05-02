@@ -21,10 +21,10 @@ import pl.gramachinx.services.RegisterServiceImpl;
 public class RegsiterController {
 	
 	@Autowired
-	CheckRegisterServiceImpl userServ;
+	private CheckRegisterServiceImpl userServ;
 	
 	@Autowired
-	RegisterServiceImpl userRegService;
+	private RegisterServiceImpl userRegService;
 	
 	@GetMapping("/register")
 	public String registerPage(Model model)

@@ -12,9 +12,9 @@ import pl.gramachinx.services.CheckConfig;
 public class UserController {
 	
 	@Autowired
-	CheckAuthorize checkauth;
+	private CheckAuthorize checkauth;
 	@Autowired
-	CheckConfig checkconf;
+	private CheckConfig checkconf;
 	
 	
 	

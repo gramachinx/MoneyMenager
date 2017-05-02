@@ -16,10 +16,10 @@ import pl.gramachinx.services.CheckAuthorize;
 @Controller
 public class AuthController {
 	@Autowired
-	CheckAuthorize checkauth;
+	private CheckAuthorize checkauth;
 	
 	@Autowired
-	ActivateService actServ;
+	private ActivateService actServ;
 	
 	@GetMapping("/authorize")
 	public String authorziePage()

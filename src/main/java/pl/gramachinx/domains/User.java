@@ -1,5 +1,6 @@
 package pl.gramachinx.domains;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -32,7 +33,7 @@ public class User {
 	@NotEmpty
 	private String email;
 	
-	@OneToOne
+	@OneToOne(cascade = CascadeType.ALL)
 	private UserData userData;
 	
 	@NotEmpty

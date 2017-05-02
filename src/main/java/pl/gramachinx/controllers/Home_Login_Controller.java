@@ -17,7 +17,7 @@ import pl.gramachinx.services.SendMail;
 @Controller
 public class Home_Login_Controller {
 	@Autowired
-	SendMail sm;
+	private SendMail sm;
 	
 	@GetMapping("/")
 	public String loginPage(HttpServletRequest request)
