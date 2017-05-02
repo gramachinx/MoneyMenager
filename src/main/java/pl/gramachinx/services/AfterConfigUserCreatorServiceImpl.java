@@ -19,10 +19,14 @@ public class AfterConfigUserCreatorServiceImpl implements AfterConfigUserCreator
 		User user = userrepo.findByUsername(username);
 		
 		UserData userData = new UserData();
+		
 		userData.setFirstConfig(firstConfig);
 		
 		user.setUserData(userData);
+		
 		user.setConfig(true);
+		
+		userData.setUser(user);
 		userrepo.save(user);
 		userrepo.flush();
 		
