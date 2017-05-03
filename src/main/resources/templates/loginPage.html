@@ -21,11 +21,11 @@
 			</div>
 			<div class="row ">
 				<div class="col s10 offset-s1 center-align">
-					<h2>The best way to safe your money.</h2>
+					<h2>Najlepsza droga do monitorowania swoich wydatków!</h2>
 				</div>
 			</div>
 			 <div th:if="${param.error}" class="red-text">
-            Invalid username and password.
+            Nieprawidłowa nazwa użytkownika lub hasło.
        		 </div>
 			
 			<form action="#" th:action="@{/}" method="post">
@@ -36,7 +36,7 @@
 			</div>
 			<div class="row">
 				<input id="last_name" name="password" type="password" class="validate " /> <label
-					for="last_name">Password</label>
+					for="last_name">Hasło</label>
 			</div>
 
 			<div class="row">
@@ -50,7 +50,7 @@
 			</form>		
 			<div class="row">
 				<div class="col s10 offset-s1 center-align">
-					<a href="/register">Click if you do not have account.</a>
+					<a href="/register">Klikni tutaj jeśli nie posiadasz konta.</a>
 				</div>
 			</div>
 		</div>
@@ -61,7 +61,6 @@
 
 	<!-- footer -->
 	<script src="/webjars/jquery/2.1.4/jquery.js"></script>
-	<script src="/myWebsite5/src/main/resources/static/parall.js"></script>
 	<script src="/webjars/materializecss/0.98.0/js/materialize.js"></script>
 	<link rel="stylesheet"
 		href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/css/materialize.min.css"></link>

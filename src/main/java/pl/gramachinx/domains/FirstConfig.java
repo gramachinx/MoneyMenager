@@ -13,7 +13,7 @@ public class FirstConfig {
 	@GeneratedValue
 	private long id;
 	
-	
+	// TODO walidacja wszyskich pol i naprawa wpisywania ulamkow
 	@NotEmpty
 	@NotNull
 	private String socialGroup;

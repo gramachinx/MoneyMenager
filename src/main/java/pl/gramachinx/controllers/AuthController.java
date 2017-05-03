@@ -3,6 +3,7 @@ package pl.gramachinx.controllers;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import pl.gramachinx.services.ActivateService;
 import pl.gramachinx.services.CheckAuthorize;
+import pl.gramachinx.services.SendMail;
 
 @Controller
 public class AuthController {
@@ -21,12 +23,18 @@ public class AuthController {
 	@Autowired
 	private ActivateService actServ;
 	
+	@Autowired
+	private SendMail sm;
+	
 	@GetMapping("/authorize")
 	public String authorziePage()
 	{
+		String authname = SecurityContextHolder.getContext().getAuthentication().getName();
+		
 		if(!checkauth.ifAuthorized(SecurityContextHolder.getContext().getAuthentication().getName()))
 		{
-		return "activatedPage";
+			sm.sendMail(authname);
+			return "activatedPage";
 		}else
 		{
 			return "redirect:/user";
@@ -46,7 +54,7 @@ public class AuthController {
 			return "redirect:/user";
 		}else
 		{
-			System.out.println("error morda");
+			System.out.println("err");
 		}
 		}else
 		{
