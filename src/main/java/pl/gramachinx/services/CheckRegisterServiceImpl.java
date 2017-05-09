@@ -7,7 +7,7 @@ import pl.gramachinx.domains.User;
 import pl.gramachinx.repository.UserRepository;
 
 @Service
-public class CheckRegisterServiceImpl {
+public class CheckRegisterServiceImpl implements CheckRegisterService{
 
 	@Autowired
 	UserRepository userRepo;

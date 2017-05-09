@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import pl.gramachinx.domains.UserRegister;
 import pl.gramachinx.services.CheckRegisterServiceImpl;
-import pl.gramachinx.services.CheckRegisterServiceInter;
+import pl.gramachinx.services.CheckRegisterService;
 import pl.gramachinx.services.RegisterService;
 import pl.gramachinx.services.RegisterServiceImpl;
 
@@ -21,10 +21,10 @@ import pl.gramachinx.services.RegisterServiceImpl;
 public class RegsiterController {
 	
 	@Autowired
-	private CheckRegisterServiceImpl userServ;
+	private CheckRegisterService userServ;
 	
 	@Autowired
-	private RegisterServiceImpl userRegService;
+	private RegisterService userRegService;
 	
 	@GetMapping("/register")
 	public String registerPage(Model model)

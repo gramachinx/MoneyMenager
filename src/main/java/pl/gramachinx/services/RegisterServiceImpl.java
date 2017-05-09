@@ -9,7 +9,7 @@ import pl.gramachinx.domains.UserRegister;
 import pl.gramachinx.repository.UserRepository;
 
 @Service
-public class RegisterServiceImpl {
+public class RegisterServiceImpl implements RegisterService {
 		@Autowired
 		private UserRepository userRepo;
 		
@@ -29,7 +29,7 @@ public class RegisterServiceImpl {
 			createdUser.setRole("USER");
 			createdUser.setUsername(user.getUsername());
 			createdUser.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-			createdUser.setSpecialNumber(((long) ((1 + Math.random())*100000000)));
+			createdUser.setSpecialNumber(((long) ((1 + Math.random())*100000000))); //TODO change it.
 			createdUser.setEnabled(true);
 			System.out.println(createdUser.toString());
 			userRepo.save(createdUser);
