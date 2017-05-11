@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extrasspringsecurity3">
+<head>
+
+</head>
+<body>
+
+	<nav>
+		<div class="nav-wrapper indigo">
+			<ul class="right">
+				
+			</ul>
+		</div>
+	</nav>
+	<div>
+	Logged user: <span sec:authentication="name">Bob</span>
+	Roles: <span sec:authentication="authorities">[ROLE_USER, ROLE_ADMIN]</span>
+		<form th:action="@{/logout}" method="post"
+			style="display: inline-block">
+			<input type="submit" value="Wyloguj" />
+		</form>
+		<hr />
+	</div>
+	<section layout:fragment="content">
+		<p>Zawarttrony</p>
+	</section>
+	
+</body>
+</html>

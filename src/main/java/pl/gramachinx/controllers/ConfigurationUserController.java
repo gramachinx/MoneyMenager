@@ -44,6 +44,8 @@ public class ConfigurationUserController {
 		username = SecurityContextHolder.getContext().getAuthentication().getName();
 		configServ.fullConfigUser(firstConf, username);
 		
+		//TODO przeladowac authtoken aby zaladowaly sie nowe role.
+		
 		return "redirect:/user";
 	}
 	

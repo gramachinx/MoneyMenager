@@ -1,10 +1,14 @@
 package pl.gramachinx;
 
+import javax.annotation.security.RolesAllowed;
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -14,7 +18,8 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 
 @Configuration
 @EnableWebSecurity
-@EnableGlobalMethodSecurity(securedEnabled = true)
+@EnableGlobalMethodSecurity(securedEnabled = true, prePostEnabled=true)
+@EnableAutoConfiguration
 public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 	
 	@Autowired
@@ -33,8 +38,8 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
             .authorizeRequests()
-                .antMatchers("/", "/webjars/**", "/css/**", "/resources/**","/register").permitAll()
-                .anyRequest().authenticated()
+                .antMatchers("/", "/webjars/**", "/css/**", "/resources/**","/register", "/tester", "/main").permitAll()
+                .anyRequest().authenticated() //fully?
                 .and()
             .formLogin()
             .defaultSuccessUrl("/user")
@@ -55,7 +60,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     				.dataSource(dataSource)
     				.passwordEncoder(bCryptPasswordEncoder);
         
-       // .inMemoryAuthentication()
-       // .withUser("test").password("test").roles("USER").and().
+       //.inMemoryAuthentication()
+       //.withUser("test").password("test").roles("USERC");
     }
 }

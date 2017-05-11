@@ -32,7 +32,8 @@ public class UserController {
 			return "redirect:/configuration";
 		}
 		
-		return "homePage";
+		
+		return "redirect:/main";
 		
 	}
 

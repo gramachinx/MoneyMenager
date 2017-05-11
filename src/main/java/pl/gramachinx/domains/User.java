@@ -1,5 +1,7 @@
 package pl.gramachinx.domains;
 
+import java.sql.Timestamp;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -38,7 +40,7 @@ public class User {
 	
 	@NotEmpty
 	private String role;
-	
+
 	@NotNull
 	private long specialNumber;
 	
@@ -49,9 +51,21 @@ public class User {
 	private boolean isConfig;
 	@NotNull
 	private boolean enabled;
+	
+	@NotNull
+	private Timestamp registerTime;
 
 	
 	
+	
+	public Timestamp getTime() {
+		return registerTime;
+	}
+
+	public void setTime(Timestamp time) {
+		this.registerTime = time;
+	}
+
 	public boolean isEnabled() {
 		return enabled;
 	}
