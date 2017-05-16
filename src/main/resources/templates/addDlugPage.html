@@ -49,42 +49,62 @@
 	
 	<div class="row black">
       <div class="row">
-      <div class="col s6 offset-s8"><span class="white"><h3 class="green">ECO MONEY MENAGER.</h3></span></div>
+      <div class="col s6 offset-s8"><span class="white">ECO MONEY MENAGER.</span></div>
       </div>
     </div>
     
    
       <div class="row">
       	<div class="col s8 offset-s3">
-      	<span class="flow-text white">Twoje wpłaty i wypłaty: </span>
-      	<div class="col s6 offset-s8"><span class="flow-text white">Saldo: </span></div>
-      	 <ul class="collection">
-  	<tr th:each="bill : ${bills}" >
-  	<div th:if="${bill.isPayBill() == true}">
+      	<span class="flow-text white">Dodaj Twojego dłużnika: </span>
+     	 
+     	 <form th:action="@{/main/debt}" th:object="${debt}"
+		method="post">
+
+		<ul th:if="${#fields.hasErrors('*')}" class="errorlist">
+			<li th:each="err : ${#fields.errors('*')}" th:text="${err}" class="red-text">incorect
+				data</li>
+		</ul>
+
+		<div class="container center-align">
+		<label for="cathegory">Nazwa dłużnika: </label>
+			<div class="row">
+			<input th:field="*{name}" type="text" id="dluznik" name="dluznik">
+			</input>
+			</div>
+				
+			<label for="money">Ile jest Ci winien pieniędzy: </label>
+			<div class="row">
+				<input th:field="*{money}" id="money" type="number"
+					class="validate" /> 
+			</div>
+			<label for="money">Do kiedy ma czas Twój dłużnik na spłatę: </label>
+			<div class="row">
+				<input th:field="*{time}" id="time" type="date"
+					class="validate" /> 
+			</div>
+			
+			<label for="money">Kiedy pożyczyłeś pieniądze: </label>
+			<div class="row">
+				<input th:field="*{borrowTime}" id="time" type="date"
+					class="validate" /> 
+			</div>
+		
+			<div class="row">
+				<div class="col s10 offset-s1 center-align">
+					<button class="btn waves-effect waves-light" type="submit"
+						name="action" value="Sign In">
+						Dodaj<i class="material-icons right">send</i>
+					</button>
+				</div>
+			</div>
+		</div>
+		<input type="hidden" th:name="${_csrf.parameterName}"
+			th:value="${_csrf.token}" />
+	</form>
+      
   	
-  	</div>
-    <li class="collection-item avatar">
-    
-      <i class="material-icons circle">folder</i>
-  
-     <font color="red" th:if="${bill.isPayBill()==true}">
-      <span class="title" th:text="${p=bill.cathegory}">Title</span>
-      <p th:text="${bill.money}">First Line </p>
-      <p th:text="${bill.time}" >First Line  </p>
-      <a href="#!" class="secondary-content"><i class="material-icons">grade</i></a>
-      </font>
-   
-     <font color="green" th:if="${bill.isPayBill()==false}">
-      <span class="title" th:text="${p=bill.cathegory}">Title</span>
-      <p th:text="${bill.money}">First Line </p>
-      <p th:text="${bill.time}" >First Line  </p>
-      <a href="#!" class="secondary-content"><i class="material-icons">grade</i></a>
-      </font>
-     
-    </li>
-    
-    </tr>
-  </ul>
+
       	</div>
       </div>
    

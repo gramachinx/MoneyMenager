@@ -21,25 +21,43 @@
 				class="material-icons">menu</i></a>
 		</div>
 		<ul id="nav-mobile" class="side-nav fixed">
+		 
 			<li class="bold"><a href="getting-started.html"
-				class="waves-effect waves-teal">Getting Started</a></li>
+				class="waves-effect waves-teal">Wpłaty/Wypłaty.</a></li>
 			<li class="bold"><a href="getting-started.html"
-				class="waves-effect waves-teal">Getting Started</a></li>
+				class="waves-effect waves-teal">Dodaj transakcje.</a></li>
 			<li class="bold"><a href="getting-started.html"
-				class="waves-effect waves-teal">Getting Started</a></li>
+				class="waves-effect waves-teal">Długi.</a></li>
+				<li class="bold"><a href="getting-started.html"
+				class="waves-effect waves-teal">Dodaj długi.</a></li>
+				<li class="bold"><a href="getting-started.html"
+				class="waves-effect waves-teal">Wykresy i statystyki.</a></li>
+						<li class="bold"><a href="getting-started.html"
+				class="waves-effect waves-teal">Wyloguj.</a></li>
+				<div class="row"></div>
+				<div class="row"></div>
+				<div class="row"></div>
+				<div class="row"></div>
+				<div class="row"></div>
+				<div class="row"></div>
+					<li class="bold"><a href="getting-started.html"
+				class="waves-effect waves-teal">Wyloguj.</a></li>
+					
+				
 		</ul>
 	</header>
 	
 	<div class="row black">
       <div class="row">
-      <div class="col s6 offset-s8"><span class="flow-text white">ECO mONEY mENAGER.</span></div>
+      <div class="col s6 offset-s8"><span class="white"><h3 class="green">ECO MONEY MENAGER.</h3></span></div>
       </div>
     </div>
     
    
       <div class="row">
       	<div class="col s8 offset-s3">
-      	<span class="flow-text white">ECO mONEY mENAGER.</span>
+      	<span class="flow-text white">Twoje wpłaty i wypłaty: </span>
+      	<div class="col s6 offset-s8"><span class="flow-text white">Saldo: </span></div>
       	 <ul class="collection">
   	<tr th:each="bill : ${bills}" >
   	<div th:if="${bill.isPayBill() == true}">

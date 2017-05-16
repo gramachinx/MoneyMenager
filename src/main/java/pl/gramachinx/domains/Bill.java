@@ -6,7 +6,10 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.ManyToOne;
+import javax.persistence.MappedSuperclass;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -15,11 +18,12 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 
 @Entity
+
 public class Bill {
 	@Id
 	@GeneratedValue
 	private long id;
-	@NotNull
+	//@NotNull
 	private Timestamp time;
 	@NotBlank
 	private String cathegory;
@@ -28,9 +32,16 @@ public class Bill {
 	@NotNull
 	private boolean isPayBill;
 	
-	@ManyToOne(cascade=CascadeType.ALL)
-	private UserData userData;
+
+
 	
+	
+	public boolean isPayBill() {
+		return isPayBill;
+	}
+	public void setPayBill(boolean isPayBill) {
+		this.isPayBill = isPayBill;
+	}
 	public Timestamp getTime() {
 		return time;
 	}
@@ -50,23 +61,11 @@ public class Bill {
 	
 		this.money = money;
 	}
-	public boolean isPayBill() {
-		return isPayBill;
-	}
-	public void setPayBill(boolean isPayBill) {
-		this.isPayBill = isPayBill;
-	}
 	public long getId() {
 		return id;
 	}
 	public void setId(long id) {
 		this.id = id;
-	}
-	public UserData getUserData() {
-		return userData;
-	}
-	public void setUserData(UserData userData) {
-		this.userData = userData;
 	}
 	
 	

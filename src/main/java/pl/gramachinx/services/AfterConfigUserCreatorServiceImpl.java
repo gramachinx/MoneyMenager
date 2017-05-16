@@ -31,9 +31,9 @@ public class AfterConfigUserCreatorServiceImpl implements AfterConfigUserCreator
 		userData.setFirstConfig(firstConfig);
 		List<Bill> bill = new ArrayList<Bill>();
 		Bill bl = new Bill();
-		bl.setCathegory("Money you start with.");
-		bl.setMoney(firstConfig.getFirstWalletValue());
 		bl.setPayBill(false);
+		bl.setCathegory("Pierwsza kwota w portfelu.");
+		bl.setMoney(firstConfig.getFirstWalletValue());
 		bl.setTime(new Timestamp(new Date().getTime()));
 		bill.add(bl);
 	

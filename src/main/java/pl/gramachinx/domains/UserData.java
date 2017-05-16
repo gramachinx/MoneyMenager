@@ -11,12 +11,15 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.validation.constraints.NotNull;
 
+import org.springframework.test.context.support.DefaultBootstrapContext;
+
 @Entity
 public class UserData {
 	
 	public UserData()
 	{
 		bills=new ArrayList<Bill>();
+		debt = new ArrayList<Debt>();
 	}
 	
 	@Id
@@ -34,6 +37,19 @@ public class UserData {
 	@OneToMany(cascade = CascadeType.ALL)
 	private List<Bill> bills;
 	
+	@NotNull
+	@OneToMany(cascade = CascadeType.ALL)
+	private List<Debt> debt;
+	
+
+
+	public List<Debt> getDebt() {
+		return debt;
+	}
+
+	public void setDebt(List<Debt> debt) {
+		this.debt = debt;
+	}
 
 	public long getId() {
 		return id;

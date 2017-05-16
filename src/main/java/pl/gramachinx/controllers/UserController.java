@@ -36,5 +36,11 @@ public class UserController {
 		return "redirect:/main";
 		
 	}
+	
+	@GetMapping("/testrest")
+	public String testMeth()
+	{
+		return "activatedPage";
+	}
 
 }
