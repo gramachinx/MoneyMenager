@@ -14,8 +14,8 @@ import javax.persistence.MappedSuperclass;
 import javax.validation.constraints.NotNull;
 
 @Entity
-public class Debt {				//TODO zrobic z tego dzidziczenie
-								//TODO w html stworzyc dwie listy dluznikow i dlugow
+public class Debt {			
+							
 	@Id
 	@GeneratedValue
 	private long id;
@@ -23,29 +23,26 @@ public class Debt {				//TODO zrobic z tego dzidziczenie
 	private String creditor;
 	@NotNull
 	private double money;
-	private GregorianCalendar deadline;
-	private boolean isPaid;
+	private String deadline;
 	@NotNull
 	private boolean isUserDebt;
+	private String info;
 	
 	
-	
+	public String getInfo() {
+		return info;
+	}
 
-	
+	public void setInfo(String info) {
+		this.info = info;
+	}
+
 	public boolean isUserDebt() {
 		return isUserDebt;
 	}
 
 	public void setUserDebt(boolean isUserDebt) {
 		this.isUserDebt = isUserDebt;
-	}
-
-	public boolean isPaid() {
-		return isPaid;
-	}
-
-	public void setPaid(boolean isPaid) {
-		this.isPaid = isPaid;
 	}
 
 	public long getId() {
@@ -72,13 +69,15 @@ public class Debt {				//TODO zrobic z tego dzidziczenie
 		this.money = money;
 	}
 
-	public GregorianCalendar getDeadline() {
+	public String getDeadline() {
 		return deadline;
 	}
 
-	public void setDeadline(GregorianCalendar deadline) {
+	public void setDeadline(String deadline) {
 		this.deadline = deadline;
 	}
+
+
 	
 	
 	

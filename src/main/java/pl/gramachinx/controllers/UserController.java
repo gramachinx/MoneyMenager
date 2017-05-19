@@ -1,5 +1,7 @@
 package pl.gramachinx.controllers;
 
+import java.security.Principal;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -20,9 +22,9 @@ public class UserController {
 	
 	
 	@GetMapping("/user")
-	public String userPage()
+	public String userPage(Principal princip)
 	{
-		String username = SecurityContextHolder.getContext().getAuthentication().getName();
+		String username = princip.getName();
 		if(!checkauth.ifAuthorized(username))
 		{
 		return "redirect:/authorize";	
@@ -33,7 +35,7 @@ public class UserController {
 		}
 		
 		
-		return "redirect:/main";
+		return "redirect:/bills";
 		
 	}
 	

@@ -86,10 +86,65 @@
 
 		</ul>
 	</header>
-	
-	<div  class="center align">
-	<a href="/debets/debt/add" class="waves-effect waves-light btn-large"><i class="material-icons left">cloud</i>WPŁATA</a>
-	<a href="/debets/debt/user/add" class="waves-effect waves-light btn-large"><i class="material-icons left">cloud</i>PŁATNOŚĆ</a>
+
+	<div class="row">
+
+		<div class="col s3">
+			<!-- Promo Content 1 goes here -->
+		</div>
+		<div class="col s4">
+			<span class="white"><h3>Twoje długi:</h3></span>
+			<ul class="collection">
+				<tr th:each="debt : ${debets}" th:if="${debt.isUserDebt()==true}">
+
+					<li class="collection-item avatar"><i
+						class="material-icons circle">trending_down</i> <font color="red"
+						th:if="${debt.isUserDebt()==true}"> <font color="black"><p>Osoba
+									której jesteś dłużny:</p></font>
+							<p th:text="${debt.creditor}">First Line</p> <font color="black"><p>Kwota
+									zadłużenia:</p></font>
+							<p th:text="${debt.money}">First Line</p> <font color="black"><p>Termin
+									spłaty:</p></font>
+							<p th:text="${debt.deadline}">First Line</p>
+
+							<div class="center align">
+								<p>
+									<a href="#!" th:href="@{'/debets/debt/delete/' + ${debt.id}}">Klikni aby spłacić</a>
+								</p>
+							</div> <a href="#!" th:href="@{'/debets/debt/edit/' + ${debt.id}}" class="secondary-content"><i
+								class="material-icons">edit</i></a>
+					</font></li>
+
+				</tr>
+			</ul>
+
+
+		</div>
+		<div class="col s4">
+			<span class="white"><h3>Twoi dłużnicy:</h3></span>
+			<ul class="collection">
+				<tr th:each="debt : ${debets}" th:if="${debt.isUserDebt()==false}">
+					<li class="collection-item avatar"><i
+						class="material-icons circle">trending_up</i> <font color="green"
+						th:if="${debt.isUserDebt()==false}"> <font color="black"><p>Twój
+									dłużnik:</p></font> <span class="title" th:text="${debt.creditor}">Title</span>
+							<font color="black"><p>Kwota długu:</p></font>
+							<p th:text="${debt.money}">First Line</p> <font color="black"><p>Termin
+									spłaty:</p></font>
+							<p th:text="${debt.deadline}">First Line</p>
+							<div class="center align">
+								<p>
+									<a href="#!" th:href="@{'/debets/debt/delete/' + ${debt.id}}">Klikni aby spłacić</a>
+								</p>
+							</div> <a href="#!" th:href="@{'/debets/debt/edit/' + ${debt.id}}" class="secondary-content"><i
+								class="material-icons">edit</i></a>
+					</font></li>
+
+				</tr>
+
+			</ul>
+		</div>
+
 	</div>
 
 	<div id="footer">
@@ -102,9 +157,6 @@
 			</div>
 		</footer>
 	</div>
-
-
-
 	<!-- footer -->
 
 	<script src="/webjars/jquery/2.1.4/jquery.js"></script>

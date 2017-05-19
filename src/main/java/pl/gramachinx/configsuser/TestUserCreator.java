@@ -63,14 +63,14 @@ public class TestUserCreator {
 		debt1.setUserDebt(false);
 		debt1.setCreditor("Wiesiek");
 		debt1.setMoney(1000);
-		debt1.setDeadline(new GregorianCalendar());
+		//debt1.setDeadline(new GregorianCalendar());
 		debtList.add(debt1);
 		
 		Debt debt2 = new Debt();
 		debt2.setUserDebt(true);
 		debt2.setCreditor("My.");
 		debt2.setMoney(100);
-		debt2.setDeadline(new GregorianCalendar());
+		//debt2.setDeadline(new GregorianCalendar());
 		debtList.add(debt2);
 		
 		listBill.add(bill);
@@ -79,6 +79,7 @@ public class TestUserCreator {
 		userData.setBills(listBill);
 		userData.setFirstConfig(fc);
 		userData.setUser(user2);
+		userData.setWallet(fc.getFirstWalletValue());
 		user2.setUserData(userData);
 		
 		return user2;

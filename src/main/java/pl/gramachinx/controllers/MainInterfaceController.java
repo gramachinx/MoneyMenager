@@ -1,5 +1,6 @@
 package pl.gramachinx.controllers;
 
+import java.security.Principal;
 import java.sql.Timestamp;
 import java.util.Date;
 
@@ -26,73 +27,84 @@ import pl.gramachinx.domains.User;
 import pl.gramachinx.domains.UserData;
 
 import pl.gramachinx.repository.UserRepository;
+import pl.gramachinx.services.StatisticService;
+
 @Controller
+@Secured({"ROLE_CONFIGUSER"})
 public class MainInterfaceController {
 	
 	@Autowired
 	private UserRepository repoUser;
+	@Autowired
+	private StatisticService statServ;
 	
-	@GetMapping("/main")
-	@Secured({"ROLE_CONFIGUSER"})
-	public String mainPage(Model model, HttpServletRequest req)
+
+	@GetMapping("/bills")
+	public String mainPage(Model model, HttpServletRequest req, Principal princip)
 	{
 		//TODO dodac bledy itp.
 		
-		String authname = SecurityContextHolder.getContext().getAuthentication().getName();
+		String authname = princip.getName();
 		User user = repoUser.findByUsername(authname);
 		UserData userData = user.getUserData();
 		model.addAttribute("bills", userData.getBills());
-		
-		
-		
+	//	model.addAttribute("saldo", statServ.getSaldo(userData));
+		//model.addAttribute("userDebets", statServ.getMyDebts(userData));
 		return "userInterfacePage";
 	}
 	
-	@GetMapping("/main/add/payment")
-	@Secured({"ROLE_CONFIGUSER"})
+	@GetMapping("/bills/bill")
+	public String billPage()
+	{
+		return "billPage";
+	}
+	
+	
+	@GetMapping("/bills/bill/payment/add")
 	public String mainPage(Model model)
 	{	
 		Bill bill = new Bill();
 		model.addAttribute("bill", bill);
-		return "addTransPage";
+		return "paymentAddPage";
 	}
 	
-	@PostMapping("/main/add/payment")
-	@Secured({"ROLE_CONFIGUSER"})
-	public String mainPage(Bill bill, BindingResult res)
+	@PostMapping("/bills/bill/payment/add")
+	public String mainPage(Bill bill, BindingResult res, Principal princip)
 	{	
-		String authname = SecurityContextHolder.getContext().getAuthentication().getName();
+		String authname = princip.getName();
 		bill.setTime(new Timestamp(new Date().getTime()));
 		bill.setMoney(bill.getMoney()*(-1));
 		bill.setPayBill(true);
 		User user = repoUser.findByUsername(authname);
-		user.getUserData().getBills().add(bill);
+		UserData userData = user.getUserData();
+		userData.getBills().add(bill);
+		userData.setWallet(userData.getWallet() + bill.getMoney());
 		repoUser.flush();
-		return "redirect:/main";
+		return "redirect:/bills/bill/payment/add";
 	}
 	
 	
 	
-	@GetMapping("/main/add/wages")
-	@Secured({"ROLE_CONFIGUSER"})
+	@GetMapping("/bills/bill/wages/add")
 	public String mainPageWages(Model model)
 	{	
 		Bill bill = new Bill();
 		model.addAttribute("bill", bill);
-		return "addGetMoneyPage";
+		return "wagesAddPage";
 	}
 	
-	@PostMapping("/main/add/wages")
-	@Secured({"ROLE_CONFIGUSER"})
-	public String mainPageWages(@Valid Bill bill, BindingResult bindres)
+	@PostMapping("/bills/bill/wages/add")
+	public String mainPageWages(@Valid Bill bill, BindingResult bindres, Principal princip)
 	{	
-		String authname = SecurityContextHolder.getContext().getAuthentication().getName();
-		bill.setTime(new Timestamp(new Date().getTime()));
+		String authname = princip.getName();
+		bill.setTime(new Timestamp(new Date().getTime()));	//TODO oddelegowac do servisu i dodac zmienianie sie poertfelaa
 		bill.setPayBill(false);
 		User user = repoUser.findByUsername(authname);
-		user.getUserData().getBills().add(bill);
+		UserData userData = user.getUserData();
+		userData.getBills().add(bill);
+		userData.setWallet(userData.getWallet() + bill.getMoney());
 		repoUser.flush();
-		return "redirect:/main";
+		return "redirect:/bills/bill/wages/add";
 	}
 	
 	

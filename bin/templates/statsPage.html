@@ -12,6 +12,7 @@
 	rel="stylesheet" />
 <link href="/webjars/materializecss/0.98.0/css/materialize.css"
 	type="text/css" rel="stylesheet" media="screen,projection" />
+
 <style>
 #footer {
 	position: absolute;
@@ -37,6 +38,11 @@
 	position: fixed;
 	bottom: 150px;
 	left: 0;
+}
+#statystyki {
+	position: fixed;
+	bottom: 400px;
+	left: 500px;
 }
 </style>
 </head>
@@ -71,11 +77,13 @@
 					value="Wyloguj" />
 			</form>
 			<div id="saldo">
-				<font color="teal"><h4>Saldo:</h4><a th:text="${saldo}">First Line</a></font>
+				<font color="teal"><h4>Saldo:</h4>
+					<a th:text="${saldo}">First Line</a></font>
 			</div>
 
 			<div id="debt">
-				<font color="teal"><h4>Zadłużenie:</h4><a th:text="${userDebets}">First Line</a></font>
+				<font color="teal"><h4>Zadłużenie:</h4>
+					<a th:text="${userDebets}">First Line</a></font>
 			</div>
 
 
@@ -86,11 +94,49 @@
 
 		</ul>
 	</header>
-	
-	<div  class="center align">
-	<a href="/debets/debt/add" class="waves-effect waves-light btn-large"><i class="material-icons left">cloud</i>WPŁATA</a>
-	<a href="/debets/debt/user/add" class="waves-effect waves-light btn-large"><i class="material-icons left">cloud</i>PŁATNOŚĆ</a>
+	<div id="statystyki">
+		<div class="row">
+			<span class="flow-text white">Saldo: <a
+				th:text="${stats.saldo}">First Line</a>
+			</span>
+		</div>
+		<div class="row">
+			<span class="flow-text white">Saldo: <a
+				th:text="${stats.userDebt}">First Line</a>
+			</span>
+		</div>
+		<div class="row">
+			<span class="flow-text white">Saldo: <a
+				th:text="${stats.debets}">First Line</a>
+			</span>
+		</div>
+		<div class="row">
+			<span class="flow-text white">Saldo: <a
+				th:text="${stats.income}">First Line</a>
+			</span>
+		</div>
+		<div class="row">
+			<span class="flow-text white">Saldo: <a
+				th:text="${stats.payments}">First Line</a>
+			</span>
+		</div>
+		<div class="row">
+			<span class="flow-text white">Saldo: <a
+				th:text="${stats.completSaldo}">First Line</a>
+			</span>
+		</div>
+		<div class="row">
+			<span class="flow-text white">Saldo: <a
+				th:text="${stats.saldoDebt}">First Line</a>
+			</span>
+		</div>
+		<div class="row">
+			<span class="flow-text white">Saldo: <a
+				th:text="${stats.saldoUserDebt}">First Line</a>
+			</span>
+		</div>
 	</div>
+
 
 	<div id="footer">
 		<footer class="page-footer teal lighten-2">
@@ -102,6 +148,7 @@
 			</div>
 		</footer>
 	</div>
+
 
 
 

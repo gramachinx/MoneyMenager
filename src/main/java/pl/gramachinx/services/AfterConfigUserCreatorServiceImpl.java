@@ -36,7 +36,7 @@ public class AfterConfigUserCreatorServiceImpl implements AfterConfigUserCreator
 		bl.setMoney(firstConfig.getFirstWalletValue());
 		bl.setTime(new Timestamp(new Date().getTime()));
 		bill.add(bl);
-	
+		userData.setWallet(firstConfig.getFirstWalletValue());
 		userData.setBills(bill);
 		
 		

@@ -1,5 +1,7 @@
 package pl.gramachinx.controllers;
 
+import java.security.Principal;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,9 +29,9 @@ public class AuthController {
 	private SendMail sm;
 	
 	@GetMapping("/authorize")
-	public String authorziePage()
+	public String authorziePage(Principal princip)
 	{
-		String authname = SecurityContextHolder.getContext().getAuthentication().getName();
+		String authname = princip.getName();
 		
 		if(!checkauth.ifAuthorized(SecurityContextHolder.getContext().getAuthentication().getName()))
 		{
@@ -42,12 +44,12 @@ public class AuthController {
 	}
 	
 	@PostMapping("/authorize")
-	public String authorziePostPage(HttpServletRequest request) //BindException class ?? do errorow
+	public String authorziePostPage(HttpServletRequest request, Principal princip) //BindException class ?? do errorow
 	{
 		if(!checkauth.ifAuthorized(SecurityContextHolder.getContext().getAuthentication().getName()))
 		{
 		long code = Long.parseLong(request.getParameter("activatedNumber"));
-		String username = SecurityContextHolder.getContext().getAuthentication().getName();
+		String username = princip.getName();
 		if(checkauth.codeCorrect(username, code))
 		{
 			actServ.active(username); 

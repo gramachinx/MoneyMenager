@@ -17,7 +17,6 @@ public class FirstConfig {
 	@NotEmpty
 	@NotNull
 	private String socialGroup;
-	
 	private double firstWalletValue;
 	
 	public String getSocialGroup() {

@@ -12,6 +12,33 @@
 	rel="stylesheet" />
 <link href="/webjars/materializecss/0.98.0/css/materialize.css"
 	type="text/css" rel="stylesheet" media="screen,projection" />
+<style>
+#footer {
+	position: absolute;
+	bottom: 0;
+	width: 100%;
+	height: 60px; /* Height of the footer */
+	background: #6cf;
+}
+
+#footer2 {
+	position: fixed;
+	bottom: 70px;
+	left: 0;
+}
+
+#saldo {
+	position: fixed;
+	bottom: 240px;
+	left: 0;
+}
+
+#debt {
+	position: fixed;
+	bottom: 150px;
+	left: 0;
+}
+</style>
 </head>
 <body bgcolor="white">
 	<header>
@@ -22,83 +49,60 @@
 		</div>
 		<ul id="nav-mobile" class="side-nav fixed">
 
-			<li class="bold"><a href="getting-started.html"
+
+			<li class="bold"><a href="/bills"
 				class="waves-effect waves-teal">Wpłaty/Wypłaty.</a></li>
-			<li class="bold"><a href="getting-started.html"
+			<hr />
+			<li class="bold"><a href="/bills/bill/"
 				class="waves-effect waves-teal">Dodaj transakcje.</a></li>
-			<li class="bold"><a href="getting-started.html"
+			<hr />
+			<li class="bold"><a href="/debets"
 				class="waves-effect waves-teal">Długi.</a></li>
-			<li class="bold"><a href="getting-started.html"
+			<hr />
+			<li class="bold"><a href="/debets/debt"
 				class="waves-effect waves-teal">Dodaj długi.</a></li>
-			<li class="bold"><a href="getting-started.html"
+			<hr />
+			<li class="bold"><a href="/stats"
 				class="waves-effect waves-teal">Wykresy i statystyki.</a></li>
-			<li class="bold"><a href="getting-started.html"
-				class="waves-effect waves-teal">Wyloguj.</a></li>
-			<div class="row"></div>
-			<div class="row"></div>
-			<div class="row"></div>
-			<div class="row"></div>
-			<div class="row"></div>
-			<div class="row"></div>
-			<li class="bold"><a href="getting-started.html"
-				class="waves-effect waves-teal">Wyloguj.</a></li>
+			<hr />
+			<form th:action="@{/logout}" method="post"
+				style="display: inline-block">
+				<input class="btn waves-effect waves-light" type="submit"
+					value="Wyloguj" />
+			</form>
+			<div id="saldo">
+				<font color="teal"><h4>Saldo:</h4><a th:text="${saldo}">First Line</a></font>
+			</div>
+
+			<div id="debt">
+				<font color="teal"><h4>Zadłużenie:</h4><a th:text="${userDebets}">First Line</a></font>
+			</div>
+
+
+			<div id="footer2">
+				<font color="teal"><h4>Money_Menager</h4></font>
+			</div>
 
 
 		</ul>
 	</header>
+	
+	<div  class="center align">
+	<a href="/debets/debt/add" class="waves-effect waves-light btn-large"><i class="material-icons left">cloud</i>WPŁATA</a>
+	<a href="/debets/debt/user/add" class="waves-effect waves-light btn-large"><i class="material-icons left">cloud</i>PŁATNOŚĆ</a>
+	</div>
 
-	<div class="row black">
-		<div class="row">
-			<div class="col s6 offset-s8">
-				<span class="white"><h3 class="green">ECO MONEY MENAGER.</h3></span>
+	<div id="footer">
+		<footer class="page-footer teal lighten-2">
+			<div class="footer-copyright teal lighten-2">
+				<div class="container teal lighten-2">
+					© 2017 Copyright Text <a class="grey-text text-lighten-4 right"
+						href="#!">More Links</a>
+				</div>
 			</div>
-		</div>
+		</footer>
 	</div>
 
-
-	<div class="row">
-
-		<div class="col s3">
-			<!-- Promo Content 1 goes here -->
-		</div>
-		<div class="col s4">
-			<span class="white"><h3 >Twoje długi: </h3></span>
-			 <ul class="collection">
-			<tr th:each="debt : ${debets}" th:if="${debt.isUserDebt()==true}">
-		
-				<li class="collection-item avatar"><i
-					class="material-icons circle">folder</i> <font color="red"
-					th:if="${debt.isUserDebt()==true}"> <span class="title"
-						th:text="${debt.creditor}">Title</span>
-						<p th:text="${debt.money}">First Line</p>
-						<p th:text="${debt.deadline}">First Line</p> <a href="#!"
-						class="secondary-content"><i class="material-icons">grade</i></a>
-				</font></li>
-
-			</tr>
-			</ul>
-
-
-		</div>
-		<div class="col s4">
-			<span class="white"><h3>Twoi dłużnicy: </h3></span>
-			 <ul class="collection">
-			<tr th:each="debt : ${debets}" th:if="${debt.isUserDebt()==false}">
-				<li class="collection-item avatar"><i
-					class="material-icons circle">folder</i> <font color="green"
-					th:if="${debt.isUserDebt()==false}"> <span class="title"
-						th:text="${debt.creditor}">Title</span>
-						<p th:text="${debt.money}">First Line</p>
-						<p th:text="${debt.deadline}">First Line</p> <a href="#!"
-						class="secondary-content"><i class="material-icons">grade</i></a>
-				</font></li>
-
-			</tr>
-
-	</ul>
-		</div>
-
-	</div>
 
 
 	<!-- footer -->
