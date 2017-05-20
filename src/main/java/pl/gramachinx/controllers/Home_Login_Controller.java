@@ -8,6 +8,7 @@ import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.Authentication;
@@ -28,36 +29,32 @@ import pl.gramachinx.services.SendMail;
 public class Home_Login_Controller {
 	@Autowired
 	private User testUser;
+
+	private UserRepository userRepo;
 	
+	protected final Logger log = Logger.getLogger(getClass().getName());
+
 	@Autowired
-	UserRepository userRepo;
-	
-	
-	//TODO rejestr dlugow twoich i czyis
-	
-	
-	@GetMapping("/")
-	public String loginPage(HttpServletRequest request)
-	{
-		if(request.getUserPrincipal() == null)
-		{
-			return "loginPage";
-		}else
-		{
-			return "redirect:/user";  
-		}
-	
+	public Home_Login_Controller(UserRepository userRepo) {
+		super();
+		this.userRepo = userRepo;
 	}
-		
+
+	@GetMapping("/")
+	public String loginPage(HttpServletRequest request) {
+		if (request.getUserPrincipal() == null) {
+			return "loginPage";
+		} else {
+			return "redirect:/user";
+		}
+
+	}
+
 	@GetMapping("/tester")
-	public String homePage2()
-	{
-		
-		
+	public String homePage2() {
+
 		userRepo.saveAndFlush(testUser);
-		
-		
-		
+
 		return "logout";
 	}
 

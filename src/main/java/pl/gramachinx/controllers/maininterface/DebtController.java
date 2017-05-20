@@ -20,127 +20,90 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import pl.gramachinx.domains.Debt;
 import pl.gramachinx.domains.User;
+import pl.gramachinx.domains.UserData;
 import pl.gramachinx.repository.UserRepository;
+import pl.gramachinx.services.DataInterface;
 
 @Controller
 @Secured("ROLE_CONFIGUSER")
 public class DebtController {
+
+	private UserRepository userRepo;
+
+	private DataInterface dataServ;
+
 	@Autowired
-	UserRepository userRepo;
-	
-	
-	@GetMapping("/debets")   //TODO poprawic wszystkie linki oraz zrobic glowny wyglad strony (stopka, logo, itp.)
-	public String debtPage(Model model, Principal princip)
-	{
-		String authname = princip.getName();
-		User user = userRepo.findByUsername(authname);	
-		model.addAttribute("debets", user.getUserData().getDebt());
+	public DebtController(UserRepository userRepo, DataInterface dataServ) {
+		super();
+		this.userRepo = userRepo;
+		this.dataServ = dataServ;
+	}
+
+	@GetMapping("/debets")
+	public String debtPage(Model model, Principal princip) {
+		UserData userData = dataServ.getUserData(princip);
+		model.addAttribute("debets", dataServ.getDebtList(userData));
+
 		return "debtListPage";
 	}
-	
+
 	@GetMapping("/debets/debt")
-	public String debtPage()
-	{
+	public String debtPage() {
 		return "debtPage";
 	}
-	
-	
+
 	@GetMapping("/debets/debt/add")
-	public String debtAddPage(Model model)
-	{
+	public String debtAddPage(Model model) {
 		model.addAttribute("debt", new Debt());
 		return "debtAddPage";
 	}
-	
+
 	@PostMapping("/debets/debt/add")
-	public String debtAddPage(@Valid Debt debt, BindingResult result, Principal princip)
-	{
-		String username = princip.getName();
-		User user = userRepo.findByUsername(username);
-		debt.setUserDebt(false);
-		user.getUserData().getDebt().add(debt);
-		userRepo.saveAndFlush(user);
+	public String debtAddPage(@Valid Debt debt, BindingResult result, Principal princip) {
+		UserData userData = dataServ.getUserData(princip);
+		dataServ.addDebt(userData, debt);
+
 		return "redirect:/debets/debt/add";
 	}
-	
-	
+
 	@GetMapping("/debets/debt/user/add")
-	public String debtAddPage2(Model model)
-	{
+	public String debtAddPage2(Model model) {
 		model.addAttribute("debt", new Debt());
 		return "userDebtAddPage";
 	}
-	
+
 	@PostMapping("/debets/debt/user/add")
-	public String debtAddPage2(@Valid Debt debt, BindingResult result, Principal princip)
-	{
-		String username = princip.getName();
-		User user = userRepo.findByUsername(username);
-		debt.setUserDebt(true);
-		debt.setMoney(debt.getMoney()*(-1));
-		user.getUserData().getDebt().add(debt);
-		userRepo.saveAndFlush(user);
+	public String debtAddPage2(@Valid Debt debt, BindingResult result, Principal princip) {
+		UserData userData = dataServ.getUserData(princip);
+		dataServ.addUserDebt(userData, debt);
+
 		return "redirect:/debets/debt/user/add";
 	}
-	
+
 	@GetMapping("/debets/debt/edit/{id}")
-	public String editPageDebt(@PathVariable long id, Model model, Principal princip)
-	{
-		User user = userRepo.findByUsername(princip.getName());
-		List<Debt> lst = user.getUserData().getDebt();
-		Debt debtToEdit = new Debt();
-		for(Debt d : lst)
-		{
-			if(d.getId() == id)
-			{
-				debtToEdit = d;
-			}
-		}
-		model.addAttribute("debt", debtToEdit);
+	public String editPageDebt(@PathVariable long id, Model model, Principal princip) {
+		UserData userData = dataServ.getUserData(princip);
+		model.addAttribute("debt", dataServ.getDebtById(userData, id));
 		return "editDebtPage";
 	}
-	
+
 	@PostMapping("/debets/debt/edit/{id}")
-	public String editPagePostPage(@RequestParam("cash") double cash, Debt debt, @PathVariable long id, Principal princip)
-	{
-		if(debt.getId() == id)
-		{
-			User user = userRepo.findByUsername(princip.getName());
-			List<Debt> lst = user.getUserData().getDebt();
-			Debt debtToEdit = new Debt();
-			for(Debt d : lst)
-			{
-				if(d.getId() == id)
-				{
-					debtToEdit = d;
-				}
-			}
-			lst.remove(debtToEdit);
-			debtToEdit.setDeadline(debt.getDeadline());
-			debtToEdit.setMoney(debtToEdit.getMoney()-cash);
-			lst.add(debtToEdit);
-			user.getUserData().setWallet((user.getUserData().getWallet())-cash);
-			userRepo.flush();
-			
+	public String editPagePostPage(@RequestParam("cash") double cash, Debt debt, @PathVariable long id,
+			Principal princip) {
+		if (debt.getId() == id) {
+			UserData userData = dataServ.getUserData(princip);
+			Debt debtToEdit = dataServ.getDebtById(userData, id);
+			dataServ.editDebt(debtToEdit, userData, cash, debt);
+
 		}
 		return "redirect:/debets";
 	}
-	
+
 	@GetMapping("/debets/debt/delete/{id}")
-	public String deletePageDebt(@PathVariable long id, Model model, Principal princip)
-	{
-		User user = userRepo.findByUsername(princip.getName());
-		List<Debt> lst = user.getUserData().getDebt();
-		Debt debtToRemove = new Debt();
-		for(Debt d : lst)
-		{
-			if(d.getId() == id)
-			{
-				debtToRemove = d;
-			}
-		}
-		lst.remove(debtToRemove);
-		userRepo.flush();
+	public String deletePageDebt(@PathVariable long id, Principal princip) {
+		UserData userData = dataServ.getUserData(princip);
+		Debt debtToRemove = dataServ.getDebtById(userData, id);
+		dataServ.debtRemove(userData, debtToRemove);
 		return "redirect:/debets";
 	}
 }
