@@ -1,8 +1,9 @@
-package pl.gramachinx.controllers;
+package pl.gramachinx.controllers.maininterface;
 
 import java.security.Principal;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import pl.gramachinx.domains.Debt;
 import pl.gramachinx.domains.User;
@@ -82,9 +84,46 @@ public class DebtController {
 	}
 	
 	@GetMapping("/debets/debt/edit/{id}")
-	public String editPageDebt(@PathVariable long id, Model model)
+	public String editPageDebt(@PathVariable long id, Model model, Principal princip)
 	{
+		User user = userRepo.findByUsername(princip.getName());
+		List<Debt> lst = user.getUserData().getDebt();
+		Debt debtToEdit = new Debt();
+		for(Debt d : lst)
+		{
+			if(d.getId() == id)
+			{
+				debtToEdit = d;
+			}
+		}
+		model.addAttribute("debt", debtToEdit);
 		return "editDebtPage";
+	}
+	
+	@PostMapping("/debets/debt/edit/{id}")
+	public String editPagePostPage(@RequestParam("cash") double cash, Debt debt, @PathVariable long id, Principal princip)
+	{
+		if(debt.getId() == id)
+		{
+			User user = userRepo.findByUsername(princip.getName());
+			List<Debt> lst = user.getUserData().getDebt();
+			Debt debtToEdit = new Debt();
+			for(Debt d : lst)
+			{
+				if(d.getId() == id)
+				{
+					debtToEdit = d;
+				}
+			}
+			lst.remove(debtToEdit);
+			debtToEdit.setDeadline(debt.getDeadline());
+			debtToEdit.setMoney(debtToEdit.getMoney()-cash);
+			lst.add(debtToEdit);
+			user.getUserData().setWallet((user.getUserData().getWallet())-cash);
+			userRepo.flush();
+			
+		}
+		return "redirect:/debets";
 	}
 	
 	@GetMapping("/debets/debt/delete/{id}")

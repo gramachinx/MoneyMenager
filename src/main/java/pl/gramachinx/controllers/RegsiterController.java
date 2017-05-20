@@ -12,10 +12,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import pl.gramachinx.domains.UserRegister;
-import pl.gramachinx.services.CheckRegisterServiceImpl;
 import pl.gramachinx.services.CheckRegisterService;
 import pl.gramachinx.services.RegisterService;
-import pl.gramachinx.services.RegisterServiceImpl;
+import pl.gramachinx.services.impl.CheckRegisterServiceImpl;
+import pl.gramachinx.services.impl.RegisterServiceImpl;
 
 @Controller
 public class RegsiterController {

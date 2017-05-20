@@ -1,4 +1,4 @@
-package pl.gramachinx.controllers;
+package pl.gramachinx.controllers.maininterface;
 
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.securityContext;
 

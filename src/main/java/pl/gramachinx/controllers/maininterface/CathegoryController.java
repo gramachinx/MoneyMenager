@@ -1,4 +1,4 @@
-package pl.gramachinx.controllers;
+package pl.gramachinx.controllers.maininterface;
 
 import java.security.Principal;
 import java.util.ArrayList;

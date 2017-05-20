@@ -1,4 +1,4 @@
-package pl.gramachinx.services;
+package pl.gramachinx.services.impl;
 
 import java.sql.Timestamp;
 import java.util.Date;
@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 import pl.gramachinx.domains.User;
 import pl.gramachinx.domains.UserRegister;
 import pl.gramachinx.repository.UserRepository;
+import pl.gramachinx.services.RegisterService;
+import pl.gramachinx.services.SendMail;
 
 @Service
 public class RegisterServiceImpl implements RegisterService {

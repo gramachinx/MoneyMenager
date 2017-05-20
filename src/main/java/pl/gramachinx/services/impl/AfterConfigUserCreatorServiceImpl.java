@@ -1,4 +1,4 @@
-package pl.gramachinx.services;
+package pl.gramachinx.services.impl;
 
 
 
@@ -15,6 +15,7 @@ import pl.gramachinx.domains.FirstConfig;
 import pl.gramachinx.domains.User;
 import pl.gramachinx.domains.UserData;
 import pl.gramachinx.repository.UserRepository;
+import pl.gramachinx.services.AfterConfigUserCreatorService;
 @Service
 public class AfterConfigUserCreatorServiceImpl implements AfterConfigUserCreatorService {
 	

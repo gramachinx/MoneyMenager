@@ -1,10 +1,11 @@
-package pl.gramachinx.services;
+package pl.gramachinx.services.impl;
 
 import org.springframework.stereotype.Service;
 
 import pl.gramachinx.domains.Bill;
 import pl.gramachinx.domains.Debt;
 import pl.gramachinx.domains.UserData;
+import pl.gramachinx.services.StatisticService;
 
 @Service
 public class StatisticServiceImpl implements StatisticService {
