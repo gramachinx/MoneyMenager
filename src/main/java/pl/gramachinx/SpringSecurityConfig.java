@@ -39,7 +39,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
         http
             .authorizeRequests()
                 .antMatchers("/", "/webjars/**", "/css/**", "/resources/**","/register", "/tester", "/main").permitAll()
-                .anyRequest().authenticated() //fully?
+                .anyRequest().authenticated() 
                 .and()
             .formLogin()
             .defaultSuccessUrl("/user")
@@ -47,7 +47,9 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 .loginPage("/")
                 .permitAll()
                 .and()
-            .logout()
+                .exceptionHandling().accessDeniedPage("/403")
+                .and()
+                .logout()
                 .permitAll();
     }
 

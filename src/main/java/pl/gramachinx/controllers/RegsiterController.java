@@ -1,7 +1,5 @@
 package pl.gramachinx.controllers;
 
-
-
 import javax.validation.Valid;
 
 import org.apache.log4j.Logger;
@@ -15,6 +13,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import pl.gramachinx.domains.UserRegister;
+import pl.gramachinx.exceptions.EmailExistException;
+import pl.gramachinx.exceptions.UserExistException;
 import pl.gramachinx.services.CheckRegisterService;
 import pl.gramachinx.services.RegisterService;
 import pl.gramachinx.services.impl.CheckRegisterServiceImpl;
@@ -26,7 +26,7 @@ public class RegsiterController {
 	private CheckRegisterService userServ;
 
 	private RegisterService userRegService;
-	
+
 	protected final Logger log = Logger.getLogger(getClass().getName());
 
 	@Autowired
@@ -49,15 +49,18 @@ public class RegsiterController {
 		if (result.hasErrors()) {
 			return "registerPage";
 		}
-
-		if (userServ.usernameExist(userReg.getUsername())) {
+		try {
+			userServ.usernameExist(userReg.getUsername());
+		} catch (UserExistException excep) {
 			ObjectError err = new ObjectError("usernameExist", "Uzytkownik o takiej nazwie juz istnieje");
 			result.addError(err);
 			log.error("User with that username exist.");
 			return "registerPage";
 		}
-		
-		if (userServ.emailExist(userReg.getEmail())) {
+
+		try {
+			userServ.emailExist(userReg.getEmail());
+		} catch (EmailExistException except) {
 			ObjectError err = new ObjectError("emailExist", "Email o takiej skladnij juz istnieje");
 			result.addError(err);
 			log.error("User with that email exist.");

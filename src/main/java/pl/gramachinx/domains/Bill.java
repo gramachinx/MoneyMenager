@@ -11,7 +11,6 @@ import javax.persistence.InheritanceType;
 import javax.persistence.ManyToOne;
 import javax.persistence.MappedSuperclass;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.NotEmpty;
@@ -23,11 +22,9 @@ public class Bill {
 	@Id
 	@GeneratedValue
 	private long id;
-	//@NotNull
 	private Timestamp time;
 	@NotBlank
 	private String cathegory;
-	//@Size(min =0 , max = 1000000) //TODO cos tu nie smiga
 	private double money;
 	@NotNull
 	private boolean isPayBill;

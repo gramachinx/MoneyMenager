@@ -32,7 +32,7 @@ public class RegisterServiceImpl implements RegisterService {
 			createdUser.setConfig(false);
 			createdUser.setEmail(user.getEmail());
 			createdUser.setName(user.getName());
-			createdUser.setRole("USER"); //TODO sprobowac wprowadzic admina do bazdy danych i probowac dzialc
+			createdUser.setRole("USER"); 
 			createdUser.setUsername(user.getUsername());
 			createdUser.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
 			createdUser.setSpecialNumber(((long) ((1 + Math.random())*100000000))); //TODO change it.

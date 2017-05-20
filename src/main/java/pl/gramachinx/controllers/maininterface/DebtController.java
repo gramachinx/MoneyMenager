@@ -6,6 +6,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.context.SecurityContext;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javassist.tools.rmi.ObjectNotFoundException;
 import pl.gramachinx.domains.Debt;
 import pl.gramachinx.domains.User;
 import pl.gramachinx.domains.UserData;
@@ -31,7 +33,7 @@ public class DebtController {
 	private UserRepository userRepo;
 
 	private DataInterface dataServ;
-
+	protected final Logger log = Logger.getLogger(getClass().getName());
 	@Autowired
 	public DebtController(UserRepository userRepo, DataInterface dataServ) {
 		super();
@@ -81,9 +83,16 @@ public class DebtController {
 	}
 
 	@GetMapping("/debets/debt/edit/{id}")
-	public String editPageDebt(@PathVariable long id, Model model, Principal princip) {
+	public String editPageDebt(@PathVariable long id, Model model, Principal princip) throws ObjectNotFoundException {
 		UserData userData = dataServ.getUserData(princip);
-		model.addAttribute("debt", dataServ.getDebtById(userData, id));
+		Debt debt = dataServ.getDebtById(userData, id);
+		if(debt==null)
+		{
+			log.error("There is not object with that id");
+			throw new ObjectNotFoundException("There is not object with that id");
+			
+		}
+		model.addAttribute("debt", debt);
 		return "editDebtPage";
 	}
 
@@ -100,9 +109,15 @@ public class DebtController {
 	}
 
 	@GetMapping("/debets/debt/delete/{id}")
-	public String deletePageDebt(@PathVariable long id, Principal princip) {
+	public String deletePageDebt(@PathVariable long id, Principal princip) throws ObjectNotFoundException {
 		UserData userData = dataServ.getUserData(princip);
 		Debt debtToRemove = dataServ.getDebtById(userData, id);
+		
+		if(debtToRemove == null)
+		{
+			log.error("There is not object with that id");
+			throw new ObjectNotFoundException("There is not object with that id");
+		}
 		dataServ.debtRemove(userData, debtToRemove);
 		return "redirect:/debets";
 	}

@@ -33,8 +33,7 @@ public class UserData {
 
 	@NotNull
 	@OneToOne(cascade = CascadeType.ALL)
-	private FirstConfig firstConfig; // TODO przeniesc wallet do DATA USER i go
-										// caly czas aktualizowac.
+	private FirstConfig firstConfig; 
 
 	@NotNull
 	@OneToMany(cascade = CascadeType.ALL)

@@ -106,6 +106,8 @@
 							<p th:text="${debt.money}">First Line</p> <font color="black"><p>Termin
 									spłaty:</p></font>
 							<p th:text="${debt.deadline}">First Line</p>
+							<font color="black"><p>Opis długu:</p></font>
+							<p th:text="${debt.info}">First Line</p>
 
 							<div class="center align">
 								<p>
@@ -132,6 +134,8 @@
 							<p th:text="${debt.money}">First Line</p> <font color="black"><p>Termin
 									spłaty:</p></font>
 							<p th:text="${debt.deadline}">First Line</p>
+							<font color="black"><p>Opis długu:</p></font>
+							<p th:text="${debt.info}">First Line</p>
 							<div class="center align">
 								<p>
 									<a href="#!" th:href="@{'/debets/debt/delete/' + ${debt.id}}">Klikni, jeśli spłacony</a>
