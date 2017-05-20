@@ -1,6 +1,7 @@
 package pl.gramachinx.controllers;
 
 import java.security.Principal;
+import java.util.List;
 
 import javax.validation.Valid;
 
@@ -73,7 +74,6 @@ public class DebtController {
 	{
 		String username = princip.getName();
 		User user = userRepo.findByUsername(username);
-		debt.setCreditor("It is your debt(" + username + ")");
 		debt.setUserDebt(true);
 		debt.setMoney(debt.getMoney()*(-1));
 		user.getUserData().getDebt().add(debt);
@@ -88,9 +88,20 @@ public class DebtController {
 	}
 	
 	@GetMapping("/debets/debt/delete/{id}")
-	public String deletePageDebt(@PathVariable long id, Model model)
+	public String deletePageDebt(@PathVariable long id, Model model, Principal princip)
 	{
-		//TODO dsd
-		return "editDebtPage";
+		User user = userRepo.findByUsername(princip.getName());
+		List<Debt> lst = user.getUserData().getDebt();
+		Debt debtToRemove = new Debt();
+		for(Debt d : lst)
+		{
+			if(d.getId() == id)
+			{
+				debtToRemove = d;
+			}
+		}
+		lst.remove(debtToRemove);
+		userRepo.flush();
+		return "redirect:/debets";
 	}
 }

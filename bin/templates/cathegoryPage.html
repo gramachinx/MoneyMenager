@@ -12,6 +12,7 @@
 	rel="stylesheet" />
 <link href="/webjars/materializecss/0.98.0/css/materialize.css"
 	type="text/css" rel="stylesheet" media="screen,projection" />
+
 <style>
 #footer {
 	position: absolute;
@@ -37,6 +38,12 @@
 	position: fixed;
 	bottom: 150px;
 	left: 0;
+}
+
+#cat {
+	position: fixed;
+	bottom: 620px;
+	right: 120px;
 }
 </style>
 </head>
@@ -87,65 +94,61 @@
 		</ul>
 	</header>
 
+	<div class="row black"></div>
+	
+	<div class="container center-align">
+		<label for="cathegory">Kategoria: </label>
+			<div class="row">
+			<select class="browser-default"  name="cathegory" onchange="location = this.value">
+			<option value="empty" selected="true" disabled="disabled">Wybierz kategorie na którą przeznaczyłeś pieniądzę</option>
+			<option value="/debets/cathegory/Jedzenie">Jedzenie</option>
+			<option value="/debets/cathegory/Piwo">Piwo</option>
+			<option value="/debets/cathegory/Wóda">Wóda</option>
+			<option value="/debets/cathegory/Papierosy">Papierosy</option>
+			<option value="/debets/cathegory/Randki">Randki</option>
+			<option value="/debets/cathegory/Dziewczynki">Dziewczynki</option>
+			<option value="/debets/cathegory/Ubrania">Ubrania</option>
+			<option value="/debets/cathegory/Rozrywka">Rozrywka</option>
+			<option value="/debets/cathegory/Sport">Sport</option>
+			<option value="/debets/cathegory/Inne">Inne</option>
+			</select>
+			</div>
+			</div>
+
+
 	<div class="row">
-
-		<div class="col s3">
-			<!-- Promo Content 1 goes here -->
-		</div>
-		<div class="col s4">
-			<span class="white"><h3>Twoje długi:</h3></span>
+		<div class="col s6 offset-s3">
+			
 			<ul class="collection">
-				<tr th:each="debt : ${debets}" th:if="${debt.isUserDebt()==true}">
-
+				<tr th:each="bill : ${bills}">
+					<div th:if="${bill.isPayBill() == true}"></div>
 					<li class="collection-item avatar"><i
-						class="material-icons circle">trending_down</i> <font color="red"
-						th:if="${debt.isUserDebt()==true}"> <font color="black"><p>Osoba
-									której jesteś dłużny:</p></font>
-							<p th:text="${debt.creditor}">First Line</p> <font color="black"><p>Kwota
-									zadłużenia:</p></font>
-							<p th:text="${debt.money}">First Line</p> <font color="black"><p>Termin
-									spłaty:</p></font>
-							<p th:text="${debt.deadline}">First Line</p>
-
-							<div class="center align">
-								<p>
-									<a href="#!" th:href="@{'/debets/debt/delete/' + ${debt.id}}">Klikni aby spłacić</a>
-								</p>
-							</div> <a href="#!" th:href="@{'/debets/debt/edit/' + ${debt.id}}" class="secondary-content"><i
-								class="material-icons">edit</i></a>
+						class="material-icons circle">euro_symbol</i> <font color="red"
+						th:if="${bill.isPayBill()==true}"> <font color="black"><p>Kategoria:
+								</p></font> <span class="title" th:text="${p=bill.cathegory}">Title</span>
+							<font color="black"><p>Kwota:</p></font>
+							<p th:text="${bill.money}">First Line</p> <font color="black"><p>Data
+									dodania:</p></font>
+							<p th:text="${bill.time}">First Line</p> <a href="#!"
+							th:href="@{'/main/bill/delete/' + ${bill.id}}"
+							class="secondary-content"><i class="material-icons">delete</i></a>
+					</font> <font color="green" th:if="${bill.isPayBill()==false}"> <font
+							color="black"><p>Kategoria:</p></font> <span class="title"
+							th:text="${p=bill.cathegory}">Title</span> <font color="black"><p>Kwota:
+								</p></font>
+							<p th:text="${bill.money}">First Line</p> <font color="black"><p>Data
+									dodania:</p></font>
+							<p th:text="${bill.time}">First Line</p> <a href="#"
+							th:href="@{'/main/bill/delete/' + ${bill.id}}"
+							class="secondary-content"><i class="material-icons">delete</i></a>
 					</font></li>
 
 				</tr>
 			</ul>
-
-
 		</div>
-		<div class="col s4">
-			<span class="white"><h3>Twoi dłużnicy:</h3></span>
-			<ul class="collection">
-				<tr th:each="debt : ${debets}" th:if="${debt.isUserDebt()==false}">
-					<li class="collection-item avatar"><i
-						class="material-icons circle">trending_up</i> <font color="green"
-						th:if="${debt.isUserDebt()==false}"> <font color="black"><p>Twój
-									dłużnik:</p></font> <span class="title" th:text="${debt.creditor}">Title</span>
-							<font color="black"><p>Kwota długu:</p></font>
-							<p th:text="${debt.money}">First Line</p> <font color="black"><p>Termin
-									spłaty:</p></font>
-							<p th:text="${debt.deadline}">First Line</p>
-							<div class="center align">
-								<p>
-									<a href="#!" th:href="@{'/debets/debt/delete/' + ${debt.id}}">Klikni, jeśli spłacony</a>
-								</p>
-							</div> <a href="#!" th:href="@{'/debets/debt/edit/' + ${debt.id}}" class="secondary-content"><i
-								class="material-icons">edit</i></a>
-					</font></li>
-
-				</tr>
-
-			</ul>
-		</div>
-
 	</div>
+
+
 
 	<div id="footer">
 		<footer class="page-footer teal lighten-2">
@@ -157,6 +160,10 @@
 			</div>
 		</footer>
 	</div>
+
+
+
+
 	<!-- footer -->
 
 	<script src="/webjars/jquery/2.1.4/jquery.js"></script>

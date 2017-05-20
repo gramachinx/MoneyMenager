@@ -2,7 +2,9 @@ package pl.gramachinx.controllers;
 
 import java.security.Principal;
 import java.sql.Timestamp;
+import java.util.Comparator;
 import java.util.Date;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -47,7 +49,21 @@ public class MainInterfaceController {
 		String authname = princip.getName();
 		User user = repoUser.findByUsername(authname);
 		UserData userData = user.getUserData();
-		model.addAttribute("bills", userData.getBills());
+		List<Bill> lista = userData.getBills();
+		lista.sort(new Comparator<Bill>() {
+
+			@Override
+			public int compare(Bill o1, Bill o2) {
+				if(o1.getTime().getTime() > o2.getTime().getTime())
+				{
+					return -1;
+				}else
+				{
+					return 1;
+				}
+			}
+		});
+		model.addAttribute("bills", lista);
 	//	model.addAttribute("saldo", statServ.getSaldo(userData));
 		//model.addAttribute("userDebets", statServ.getMyDebts(userData));
 		return "userInterfacePage";

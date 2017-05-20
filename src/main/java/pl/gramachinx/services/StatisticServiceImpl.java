@@ -79,7 +79,7 @@ public class StatisticServiceImpl implements StatisticService {
 
 	@Override
 	public double getSaldoWithDebts(UserData userData) {
-		return getSaldoWithNotUserDebts(userData) + getDebts(userData);
+		return getSaldoWithUserDebts(userData) + getDebts(userData);
 	}
 
 }
