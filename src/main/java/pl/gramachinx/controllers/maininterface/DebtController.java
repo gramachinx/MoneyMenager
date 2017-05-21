@@ -27,7 +27,7 @@ import pl.gramachinx.repository.UserRepository;
 import pl.gramachinx.services.DataInterface;
 
 @Controller
-@Secured("ROLE_CONFIGUSER")
+@Secured({ "ROLE_CONFIGUSER" })
 public class DebtController {
 
 	private UserRepository userRepo;

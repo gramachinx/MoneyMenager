@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -27,7 +28,8 @@ public class TestUserCreator {
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 	
 	@Bean
-	public User testUser()
+	@Qualifier("UserAuth")
+	public User testUserAuth()
 	{
 		User user2 = new User();
 		user2.setActive(true);
@@ -82,6 +84,25 @@ public class TestUserCreator {
 		userData.setUser(user2);
 		userData.setWallet(fc.getFirstWalletValue());
 		user2.setUserData(userData);
+		
+		return user2;
+	}
+	
+	@Bean(name="UserNoAuth")
+	@Qualifier("UserNoAuth")
+	public User testUserNoAuth()
+	{
+		User user2 = new User();
+		user2.setActive(false);
+		user2.setConfig(false);
+		user2.setEmail("nowy.lolerk@gmail.com");
+		user2.setEnabled(false);
+		user2.setName("JanoPW");
+		user2.setPassword(bCryptPasswordEncoder.encode("test2"));
+		user2.setRole("ROLE_USER");
+		user2.setSpecialNumber(UUID.randomUUID().toString());
+		user2.setUsername("testNoAuth");
+		user2.setTime(new Timestamp(new Date().getTime()));
 		
 		return user2;
 	}

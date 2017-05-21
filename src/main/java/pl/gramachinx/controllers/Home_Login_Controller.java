@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
@@ -33,7 +34,12 @@ import pl.gramachinx.services.SendMail;
 @Controller
 public class Home_Login_Controller {
 	@Autowired
+	@Qualifier("UserAuth")
 	private User testUser;
+	
+	@Autowired
+	@Qualifier("UserNoAuth")
+	private User testUser2;
 
 	private UserRepository userRepo;
 	private SendMail mailServ;
@@ -64,6 +70,7 @@ public class Home_Login_Controller {
 
 		return "logout";
 	}
+	
 	
 	@GetMapping("/password/rec")
 	public String homePage2(Model model) {

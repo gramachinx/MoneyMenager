@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import pl.gramachinx.domains.UserRegister;
@@ -46,7 +47,7 @@ public class RegsiterController {
 	}
 
 	@PostMapping
-	public String registerPostPage(@Valid UserRegister userReg, BindingResult result, Model model) {
+	public String registerPostPage(@Valid @ModelAttribute("userRgister") UserRegister userReg, BindingResult result, Model model) {
 	
 		if (result.hasErrors()) {
 			log.error("Problem with register");
@@ -80,7 +81,7 @@ public class RegsiterController {
 		
 		userRegService.addUser(userReg);
 		sendMail.sendMail(userReg.getUsername());
-		return "redirect:/user";  //moze zwracanie modelu i widoku
+		return "redirect:/user";  
 	}
 
 }

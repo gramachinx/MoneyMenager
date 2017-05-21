@@ -22,6 +22,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.HttpRequestHandler;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import pl.gramachinx.domains.Bill;
@@ -81,7 +82,7 @@ public class MainInterfaceController {
 	}
 
 	@PostMapping("/bills/bill/wages/add")
-	public String mainPageWages(@Valid Bill bill, BindingResult bindres, Principal princip) {
+	public String mainPageWages(@Valid @ModelAttribute("bill") Bill bill, BindingResult bindres, Principal princip) {
 		UserData userData = dataServ.getUserData(princip);
 		dataServ.addWages(userData, bill);
 

@@ -32,6 +32,7 @@ public class ApiController {
 
 	@RequestMapping(value = "/bills", method = RequestMethod.GET)
 	public List<Bill> getBillList(Principal principal) {
+		System.out.println(principal.getName());
 		return dataServ.getSortedList(userRepo.findByUsername(principal.getName()).getUserData());
 	}
 
