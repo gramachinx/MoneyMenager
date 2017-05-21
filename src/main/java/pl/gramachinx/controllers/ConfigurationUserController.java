@@ -2,6 +2,8 @@ package pl.gramachinx.controllers;
 
 import java.security.Principal;
 
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,11 +46,15 @@ public class ConfigurationUserController {
 	}
 
 	@PostMapping("/configuration")
-	public String configPagePost(FirstConfig firstConf, Principal princip) {
+	public String configPagePost(FirstConfig firstConf, Principal princip, HttpServletRequest req) {
 		username = princip.getName();
 		configServ.fullConfigUser(firstConf, username);
 
-		// TODO przeladowac authtoken aby zaladowaly sie nowe role.
+		try {
+			req.logout();
+		} catch (ServletException e) {
+			e.printStackTrace();
+		}
 
 		return "redirect:/user";
 	}

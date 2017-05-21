@@ -1,8 +1,11 @@
 package pl.gramachinx.services.impl;
 
+import java.util.UUID;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import pl.gramachinx.domains.User;
@@ -12,7 +15,10 @@ import pl.gramachinx.services.SendMail;
 public class SendMailImpl implements SendMail {
 
 	@Autowired
-	UserRepository userRepo;
+	private UserRepository userRepo;
+	
+	@Autowired
+    private BCryptPasswordEncoder b;
 	
 	 @Autowired
 	 public JavaMailSender emailSender;
@@ -26,6 +32,22 @@ public class SendMailImpl implements SendMail {
 		emailSender.send(message);
 		
 		return false;
+	}
+	
+	//TODO rozdzielic to na 2 serwisy.
+	public void passRecorvery(String email, User user) {
+		String str = UUID.randomUUID().toString();
+		user.setPassword(b.encode(str));
+		userRepo.flush();
+		System.out.println(user.getName());
+		SimpleMailMessage message = new SimpleMailMessage();
+		message.setText("Twoje nowe hasło to: " + str);
+		message.setSubject("Zapomniane hasło.");
+		message.setTo(email);
+		emailSender.send(message);
+		System.out.println("email dziala");
+		
+		
 	}
 
 }

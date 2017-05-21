@@ -42,7 +42,7 @@ public class User {
 	private String role;
 
 	@NotNull
-	private long specialNumber;
+	private String specialNumber;
 	
 	@NotNull
 	private boolean isActive;
@@ -146,11 +146,11 @@ public class User {
 		this.isConfig = isConfig;
 	}
 
-	public long getSpecialNumber() {
+	public String getSpecialNumber() {
 		return specialNumber;
 	}
 
-	public void setSpecialNumber(long specialNumber) {
+	public void setSpecialNumber(String specialNumber) {
 		this.specialNumber = specialNumber;
 	}
 

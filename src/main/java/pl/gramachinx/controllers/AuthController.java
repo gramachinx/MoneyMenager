@@ -1,5 +1,7 @@
 package pl.gramachinx.controllers;
 
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
+
 import java.security.Principal;
 
 import javax.servlet.http.HttpServletRequest;
@@ -9,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -51,25 +54,35 @@ public class AuthController {
 	}
 
 	@PostMapping("/authorize")
-	public String authorziePostPage(HttpServletRequest request, Principal princip) // BindException
+	public String authorziePostPage(HttpServletRequest request, Principal princip, Model model) // BindException
 																					// class
 																					// ??
 																					// do
 																					// errorow
 	{
 		if (!checkauth.ifAuthorized(SecurityContextHolder.getContext().getAuthentication().getName())) {
-			long code = Long.parseLong(request.getParameter("activatedNumber"));
+			String code = request.getParameter("activatedNumber");
 			String username = princip.getName();
 			if (checkauth.codeCorrect(username, code)) {
 				actServ.active(username);
 				return "redirect:/user";
 			} else {
+				
 				log.error(username + "has inserted incorect acvtivate code.");
+				model.addAttribute("message", "Zły kod.");
 			}
 		} else {
 			return "redirect:/user";
 		}
 		return "activatedPage";
+	}
+	
+	@GetMapping("/authorize/remail")
+	public String remailMeth(Model model)
+	{
+		model.addAttribute("message", "Mail został wysłany ponownie");
+		return "activatedPage";
+		
 	}
 
 }

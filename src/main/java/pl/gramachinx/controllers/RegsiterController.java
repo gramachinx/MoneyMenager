@@ -17,6 +17,7 @@ import pl.gramachinx.exceptions.EmailExistException;
 import pl.gramachinx.exceptions.UserExistException;
 import pl.gramachinx.services.CheckRegisterService;
 import pl.gramachinx.services.RegisterService;
+import pl.gramachinx.services.SendMail;
 import pl.gramachinx.services.impl.CheckRegisterServiceImpl;
 import pl.gramachinx.services.impl.RegisterServiceImpl;
 
@@ -26,14 +27,16 @@ public class RegsiterController {
 	private CheckRegisterService userServ;
 
 	private RegisterService userRegService;
+	private SendMail sendMail;
 
 	protected final Logger log = Logger.getLogger(getClass().getName());
 
 	@Autowired
-	public RegsiterController(CheckRegisterService userServ, RegisterService userRegService) {
+	public RegsiterController(CheckRegisterService userServ, RegisterService userRegService, SendMail sendMail) {
 		super();
 		this.userServ = userServ;
 		this.userRegService = userRegService;
+		this.sendMail = sendMail;
 	}
 
 	@GetMapping("/register")
@@ -43,10 +46,10 @@ public class RegsiterController {
 	}
 
 	@PostMapping
-	public String registerPostPage(@Valid UserRegister userReg, BindingResult result) {
-		System.out.println(userReg.getEmail());
-
+	public String registerPostPage(@Valid UserRegister userReg, BindingResult result, Model model) {
+	
 		if (result.hasErrors()) {
+			log.error("Problem with register");
 			return "registerPage";
 		}
 		try {
@@ -61,7 +64,7 @@ public class RegsiterController {
 		try {
 			userServ.emailExist(userReg.getEmail());
 		} catch (EmailExistException except) {
-			ObjectError err = new ObjectError("emailExist", "Email o takiej skladnij juz istnieje");
+			ObjectError err = new ObjectError("emailExist", "Email o takiej składnij juz istnieje");
 			result.addError(err);
 			log.error("User with that email exist.");
 			return "registerPage";
@@ -74,10 +77,10 @@ public class RegsiterController {
 			return "registerPage";
 		}
 
-		// TODO wysylac maila z aktywacja i przekierowanie do strony z aktywacja
-
+		
 		userRegService.addUser(userReg);
-		return "loginPage"; // strona ktora poinformuje o strzoonym urzytkowniku
+		sendMail.sendMail(userReg.getUsername());
+		return "redirect:/user";  //moze zwracanie modelu i widoku
 	}
 
 }

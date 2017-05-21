@@ -2,6 +2,7 @@ package pl.gramachinx.services.impl;
 
 import java.sql.Timestamp;
 import java.util.Date;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -35,14 +36,10 @@ public class RegisterServiceImpl implements RegisterService {
 			createdUser.setRole("USER"); 
 			createdUser.setUsername(user.getUsername());
 			createdUser.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-			createdUser.setSpecialNumber(((long) ((1 + Math.random())*100000000))); //TODO change it.
+			createdUser.setSpecialNumber(UUID.randomUUID().toString());
 			createdUser.setEnabled(true);
-			System.out.println(createdUser.toString());
-			userRepo.save(createdUser);
-			
-		//	sendMail.sendMail(createdUser.getName());
-			
-			return false;
+			userRepo.saveAndFlush(createdUser);
+			return true;
 			
 		}
 }

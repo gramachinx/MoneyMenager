@@ -28,6 +28,6 @@ public class ErrorController {
 	    mav.setViewName("error");
 	    return mav;
 	  }
-	  
+
 	  //TODO add exception handler 
 }

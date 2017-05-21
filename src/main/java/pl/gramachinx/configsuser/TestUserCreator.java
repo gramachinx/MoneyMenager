@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -36,7 +37,7 @@ public class TestUserCreator {
 		user2.setName("Jano");
 		user2.setPassword(bCryptPasswordEncoder.encode("test2"));
 		user2.setRole("ROLE_CONFIGUSER");
-		user2.setSpecialNumber(10000000);
+		user2.setSpecialNumber(UUID.randomUUID().toString());
 		user2.setUsername("test");
 		user2.setTime(new Timestamp(new Date().getTime()));
 		

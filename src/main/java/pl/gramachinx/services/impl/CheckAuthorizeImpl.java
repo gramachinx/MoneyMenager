@@ -21,10 +21,10 @@ public class CheckAuthorizeImpl implements CheckAuthorize {
 
 
 	@Override
-	public boolean codeCorrect(String username, long code) {
+	public boolean codeCorrect(String username, String code) {
 		User user = userRepo.findByUsername(username);
 		
-		return user.getSpecialNumber() == code;
+		return user.getSpecialNumber().equals(code);
 	}
 
 }

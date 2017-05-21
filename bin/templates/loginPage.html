@@ -37,7 +37,8 @@
 			 <div th:if="${param.error}" class="red-text">
             Nieprawidłowa nazwa użytkownika lub hasło.
        		 </div>
-			
+			<p class="col s12 center" th:text="${message}">Żądana strona nie
+			istnieje</p>
 			<form action="#" th:action="@{/}" method="post">
 			<div class="row">
 
@@ -61,6 +62,12 @@
 			<div class="row">
 				<div class="col s10 offset-s1 center-align">
 					<a href="/register">Klikni tutaj jeśli nie posiadasz konta.</a>
+				</div>
+			</div>
+			
+			<div class="row">
+				<div class="col s10 offset-s1 center-align">
+					<a href="/password/rec">Klikni tutaj jeśli zapomniałeś hasło.</a>
 				</div>
 			</div>
 		</div>

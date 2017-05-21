@@ -21,10 +21,10 @@ public class CheckRegisterServiceImpl implements CheckRegisterService{
 
 		if(user == null)
 		{
-			 throw new UserExistException("Do not find user with that username");
+			 return false;
 		}else
 		{
-			return true;
+			throw new UserExistException("Do not find user with that username");
 		}
 	}
 	
@@ -34,10 +34,10 @@ public class CheckRegisterServiceImpl implements CheckRegisterService{
 		
 		if(user == null)
 		{
-			throw new EmailExistException("This email alredy exist");
+			return false;
 		}else
 		{
-			return true;
+			throw new EmailExistException("This email alredy exist");
 		}
 	}
 }
