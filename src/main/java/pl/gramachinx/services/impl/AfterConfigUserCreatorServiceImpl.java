@@ -20,7 +20,7 @@ import pl.gramachinx.services.AfterConfigUserCreatorService;
 public class AfterConfigUserCreatorServiceImpl implements AfterConfigUserCreatorService {
 	
 	@Autowired
-	UserRepository userrepo;
+	private UserRepository userrepo;
 
 	@Override
 	public void fullConfigUser(FirstConfig firstConfig, String username) {

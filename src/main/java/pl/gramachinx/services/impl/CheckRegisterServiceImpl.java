@@ -13,7 +13,7 @@ import pl.gramachinx.services.CheckRegisterService;
 public class CheckRegisterServiceImpl implements CheckRegisterService{
 
 	@Autowired
-	UserRepository userRepo;
+	private UserRepository userRepo;
 	
 	public boolean usernameExist(String username) throws UserExistException
 	{

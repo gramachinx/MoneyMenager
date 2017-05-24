@@ -28,7 +28,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import pl.gramachinx.domains.Bill;
 import pl.gramachinx.domains.User;
 import pl.gramachinx.domains.UserData;
-
+import pl.gramachinx.repository.UserDataRepository;
 import pl.gramachinx.repository.UserRepository;
 import pl.gramachinx.services.DataInterface;
 import pl.gramachinx.services.StatisticService;
@@ -36,7 +36,7 @@ import pl.gramachinx.services.StatisticService;
 @Controller
 @Secured({ "ROLE_CONFIGUSER" })
 public class MainInterfaceController {
-
+	
 	private DataInterface dataServ;
 
 	@Autowired
@@ -47,7 +47,6 @@ public class MainInterfaceController {
 
 	@GetMapping("/bills")
 	public String mainPage(Model model, HttpServletRequest req, Principal princip) {
-
 		UserData userData = dataServ.getUserData(princip);
 		model.addAttribute("bills", dataServ.getSortedList(userData));
 
@@ -67,7 +66,7 @@ public class MainInterfaceController {
 	}
 
 	@PostMapping("/bills/bill/payment/add")
-	public String mainPage(Bill bill, BindingResult res, Principal princip) {
+	public String mainPage(@Valid @ModelAttribute("bill")Bill bill, BindingResult res, Principal princip) {
 		UserData userData = dataServ.getUserData(princip);
 		dataServ.addPayment(userData, bill);
 		return "redirect:/bills/bill/payment/add";

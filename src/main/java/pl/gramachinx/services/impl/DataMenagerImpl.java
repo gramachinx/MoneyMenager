@@ -2,6 +2,7 @@ package pl.gramachinx.services.impl;
 
 import java.security.Principal;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
@@ -13,14 +14,16 @@ import pl.gramachinx.domains.Bill;
 import pl.gramachinx.domains.Debt;
 import pl.gramachinx.domains.User;
 import pl.gramachinx.domains.UserData;
+import pl.gramachinx.repository.UserDataRepository;
 import pl.gramachinx.repository.UserRepository;
 import pl.gramachinx.services.DataInterface;
 @Service
 public class DataMenagerImpl implements DataInterface{
 	
 	@Autowired
-	UserRepository userRepo;
-
+	private UserRepository userRepo;
+	@Autowired
+	private UserDataRepository userDataRepo;
 	@Override
 	public List<Bill> getSortedList(UserData userData) {
 		List<Bill> lista = userData.getBills();
@@ -42,8 +45,16 @@ public class DataMenagerImpl implements DataInterface{
 
 	@Override
 	public List<Bill> getSortedListByCathegory(UserData userdata, String cathegory) {
-		// TODO Auto-generated method stub
-		return null;
+		List<Bill> list = getSortedList(userdata);
+		List<Bill> listToReurn = new ArrayList<Bill>();
+		for(Bill b : list)
+		{
+			if(b.getCathegory().equals(cathegory))
+			{
+				listToReurn.add(b);
+			}
+		}
+		return listToReurn;
 	}
 
 	@Override
@@ -106,7 +117,7 @@ public class DataMenagerImpl implements DataInterface{
 	@Override
 	public UserData getUserData(Principal princip) {
 		String userName = princip.getName();
-		return userRepo.findByUsername(userName).getUserData();
+		return userDataRepo.findByUserUsername(userName);
 	}
 
 	@Override

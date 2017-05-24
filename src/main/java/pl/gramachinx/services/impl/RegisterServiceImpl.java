@@ -20,7 +20,7 @@ public class RegisterServiceImpl implements RegisterService {
 		private UserRepository userRepo;
 		
 		@Autowired
-		SendMail sendMail;
+		private SendMail sendMail;
 		
 		@Autowired
 	    private BCryptPasswordEncoder bCryptPasswordEncoder;

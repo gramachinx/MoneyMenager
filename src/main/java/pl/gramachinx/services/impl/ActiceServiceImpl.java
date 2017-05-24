@@ -10,7 +10,7 @@ import pl.gramachinx.services.ActivateService;
 public class ActiceServiceImpl implements ActivateService{
 	
 	@Autowired
-	UserRepository userRepo;
+	private UserRepository userRepo;
 	@Override
 	public void active(String user2) {
 		User user = userRepo.findByUsername(user2);

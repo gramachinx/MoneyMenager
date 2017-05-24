@@ -15,6 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -30,14 +31,12 @@ import pl.gramachinx.services.DataInterface;
 @Secured({ "ROLE_CONFIGUSER" })
 public class DebtController {
 
-	private UserRepository userRepo;
-
 	private DataInterface dataServ;
 	protected final Logger log = Logger.getLogger(getClass().getName());
+	
 	@Autowired
-	public DebtController(UserRepository userRepo, DataInterface dataServ) {
+	public DebtController(DataInterface dataServ) {
 		super();
-		this.userRepo = userRepo;
 		this.dataServ = dataServ;
 	}
 
@@ -61,7 +60,7 @@ public class DebtController {
 	}
 
 	@PostMapping("/debets/debt/add")
-	public String debtAddPage(@Valid Debt debt, BindingResult result, Principal princip) {
+	public String debtAddPage(@Valid @ModelAttribute("debt") Debt debt, BindingResult result, Principal princip) {
 		UserData userData = dataServ.getUserData(princip);
 		dataServ.addDebt(userData, debt);
 
@@ -75,7 +74,7 @@ public class DebtController {
 	}
 
 	@PostMapping("/debets/debt/user/add")
-	public String debtAddPage2(@Valid Debt debt, BindingResult result, Principal princip) {
+	public String debtAddPage2(@Valid @ModelAttribute("debt")Debt debt, BindingResult result, Principal princip) {
 		UserData userData = dataServ.getUserData(princip);
 		dataServ.addUserDebt(userData, debt);
 

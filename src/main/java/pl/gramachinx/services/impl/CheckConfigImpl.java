@@ -10,7 +10,7 @@ import pl.gramachinx.services.CheckConfig;
 @Service
 public class CheckConfigImpl implements CheckConfig{
 	@Autowired
-	UserRepository userRepo;
+	private UserRepository userRepo;
 	
 	
 	@Override

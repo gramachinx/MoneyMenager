@@ -28,6 +28,7 @@ import pl.gramachinx.domains.FirstConfig;
 import pl.gramachinx.domains.User;
 import pl.gramachinx.domains.UserData;
 import pl.gramachinx.exceptions.UserExistException;
+import pl.gramachinx.repository.UserDataRepository;
 import pl.gramachinx.repository.UserRepository;
 import pl.gramachinx.services.SendMail;
 
@@ -40,6 +41,7 @@ public class Home_Login_Controller {
 	@Autowired
 	@Qualifier("UserNoAuth")
 	private User testUser2;
+	
 
 	private UserRepository userRepo;
 	private SendMail mailServ;
@@ -69,6 +71,21 @@ public class Home_Login_Controller {
 		userRepo.saveAndFlush(testUser);
 
 		return "logout";
+	}
+	@GetMapping("/testtime")
+	public String homePage2(Principal prinip) {
+
+		userRepo.saveAndFlush(testUser);
+
+		return "logout";
+	}
+	
+	@GetMapping("/license")
+	public String license() {
+
+		//userRepo.saveAndFlush(testUser);
+
+		return "license";
 	}
 	
 	
