@@ -26,6 +26,6 @@
 - Money safe wallet
  
 ## Screenshots
-	![](https://github.com/gramachinx/MoneyMenager/blob/master/screenshots/1.png)
-	![](https://github.com/gramachinx/MoneyMenager/blob/master/screenshots/1.png)
-	![](https://github.com/gramachinx/MoneyMenager/blob/master/screenshots/1.png)
+![](https://github.com/gramachinx/MoneyMenager/blob/master/screenshots/1.png)
+![](https://github.com/gramachinx/MoneyMenager/blob/master/screenshots/1.png)
+![](https://github.com/gramachinx/MoneyMenager/blob/master/screenshots/1.png)
