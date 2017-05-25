@@ -23,11 +23,13 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.HttpRequestHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import pl.gramachinx.domains.Bill;
 import pl.gramachinx.domains.User;
 import pl.gramachinx.domains.UserData;
+import pl.gramachinx.exceptions.ObjectNotFoundException;
 import pl.gramachinx.repository.UserDataRepository;
 import pl.gramachinx.repository.UserRepository;
 import pl.gramachinx.services.DataInterface;
@@ -86,6 +88,15 @@ public class MainInterfaceController {
 		dataServ.addWages(userData, bill);
 
 		return "redirect:/bills/bill/wages/add";
+	}
+	
+	@GetMapping("/bills/bill/delete/{id}")
+	public String deleteBill(@PathVariable long id, Principal princip) throws ObjectNotFoundException
+	{
+		UserData userData = dataServ.getUserData(princip);
+			dataServ.billRemove(userData, id);
+		
+		return "redirect:/bills";
 	}
 
 }

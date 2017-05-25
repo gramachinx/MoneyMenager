@@ -45,7 +45,7 @@ public class TestUserCreator {
 		
 		UserData userData = new UserData();
 		FirstConfig fc = new FirstConfig();
-		fc.setFirstWalletValue(1000);
+		fc.setFirstWalletValue(11987);
 		fc.setSocialGroup("Student");
 		
 		List<Bill> listBill = new ArrayList<Bill>();

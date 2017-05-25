@@ -6,6 +6,7 @@ import java.util.List;
 import pl.gramachinx.domains.Bill;
 import pl.gramachinx.domains.Debt;
 import pl.gramachinx.domains.UserData;
+import pl.gramachinx.exceptions.ObjectNotFoundException;
 
 public interface DataInterface {
 	
@@ -20,5 +21,6 @@ public interface DataInterface {
 	List<Debt> getDebtList(UserData userData);
 	void editDebt(Debt debtToEdit, UserData userData, double cash, Debt debt);
 	void debtRemove(UserData userData, Debt debt);
+	void billRemove(UserData userData, long id) throws ObjectNotFoundException;
 
 }

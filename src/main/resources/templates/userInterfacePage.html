@@ -117,7 +117,7 @@
 							<p th:text="${bill.money}">First Line</p> <font color="black"><p>Data
 									dodania:</p></font>
 							<p th:text="${bill.time}">First Line</p> <a href="#!"
-							th:href="@{'/main/bill/delete/' + ${bill.id}}"
+							th:href="@{'/bills/bill/delete/' + ${bill.id}}"
 							class="secondary-content"><i class="material-icons">delete</i></a>
 					</font> <font color="green" th:if="${bill.isPayBill()==false}"> <font
 							color="black"><p>Kategoria:</p></font> <span class="title"
@@ -126,7 +126,7 @@
 							<p th:text="${bill.money}">First Line</p> <font color="black"><p>Data
 									dodania:</p></font>
 							<p th:text="${bill.time}">First Line</p> <a href="#"
-							th:href="@{'/main/bill/delete/' + ${bill.id}}"
+							th:href="@{'/bills/bill/delete/' + ${bill.id}}"
 							class="secondary-content"><i class="material-icons">delete</i></a>
 					</font></li>
 
@@ -143,8 +143,8 @@
 		<footer class="page-footer teal lighten-2">
 			<div class="footer-copyright teal lighten-2">
 				<div class="container teal lighten-2">
-					© 2017 Copyright Text <a class="grey-text text-lighten-4 right"
-						href="/license">MIT License.</a>
+													© 2017 Copyright Konrad L. <a class="grey-text text-lighten-4 right"
+						href="/license">License</a>
 				</div>
 			</div>
 		</footer>

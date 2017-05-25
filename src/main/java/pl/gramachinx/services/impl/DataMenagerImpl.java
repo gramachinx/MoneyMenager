@@ -1,5 +1,7 @@
 package pl.gramachinx.services.impl;
 
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;
+
 import java.security.Principal;
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -14,6 +16,7 @@ import pl.gramachinx.domains.Bill;
 import pl.gramachinx.domains.Debt;
 import pl.gramachinx.domains.User;
 import pl.gramachinx.domains.UserData;
+import pl.gramachinx.exceptions.ObjectNotFoundException;
 import pl.gramachinx.repository.UserDataRepository;
 import pl.gramachinx.repository.UserRepository;
 import pl.gramachinx.services.DataInterface;
@@ -154,6 +157,32 @@ public class DataMenagerImpl implements DataInterface{
 	public void debtRemove(UserData userData, Debt debt) {
 		userData.getDebt().remove(debt);
 		userRepo.flush();
+		
+	}
+
+	@Override
+	public void billRemove(UserData userData, long id) throws ObjectNotFoundException {
+		List<Bill> bills = userData.getBills();
+		Bill bTR = null;
+		for(Bill b : bills)
+		{
+			if(b.getId()==id)
+			{
+				bTR = b;
+			}
+		}
+		
+		if(bTR == null)
+		{
+			throw new ObjectNotFoundException("Not found bill with that id");
+		}else
+		{
+			userData.setWallet(userData.getWallet() - bTR.getMoney());
+			userData.getBills().remove(bTR);
+			userDataRepo.flush();
+		}
+		
+		
 		
 	}
 
